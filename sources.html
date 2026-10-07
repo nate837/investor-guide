@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="description" content="Educational Investor Guide: a phone-friendly quiz that builds a sample long-term plan of real ETFs and companies, with research cards built from SEC filings. College-application project. Not financial advice." />
+  <meta name="theme-color" content="#1b6b4a" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Investor Guide — educational project" />
+  <meta property="og:description" content="Risk-first quiz → sample plan of real ETFs and companies, with research cards from SEC filings. Educational only, not financial advice." />
+  <meta property="og:image" content="icon-512.png" />
+  <meta name="twitter:card" content="summary" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="favicon.ico" sizes="32x32" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+  <link rel="manifest" href="site.webmanifest" />
+  <title>Investor Guide — Trusted Sources</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <p class="brand">Investor Guide · Session 5</p>
+      <h1>Trusted Sources</h1>
+      <span class="badge-edu">Educational · Not personalized advice</span>
+    </header>
+
+    <main class="main">
+      <section class="card">
+        <p class="lede sources-intro">
+          This page is the product’s source policy. Plans cite only the reports below.
+          Prefer primary documents over secondary summaries. No live prices. No market-wide scan.
+        </p>
+      </section>
+
+      <section class="card sources-allowed" aria-labelledby="allowed-heading">
+        <p class="tag-ok" id="allowed-heading">Allowed sources</p>
+        <ul class="list-ok">
+          <li>SEC EDGAR 10-K, 10-Q, 8-K</li>
+          <li>Official company IR earnings releases / transcripts</li>
+          <li>Official ETF fact sheets</li>
+          <li>SEC 13F-HR for the 12 locked firms only (delayed; not a buy list)</li>
+          <li>Berkshire annual shareholder letter</li>
+          <li>Pershing Square official investor letters</li>
+          <li>Third Point official letters</li>
+          <li>ARK official holdings files</li>
+          <li>AQR official research papers</li>
+          <li>Damodaran industry data (context)</li>
+        </ul>
+      </section>
+
+      <section class="card sources-banned" aria-labelledby="banned-heading">
+        <p class="tag-no" id="banned-heading">Banned sources</p>
+        <ul class="list-no">
+          <li>Reddit, TikTok, random blogs</li>
+          <li>Anonymous “smart money” lists</li>
+          <li>Other funds / managers not in the locked 12</li>
+          <li>Guaranteed-return calls</li>
+          <li>Treating a 13F as a live buy list</li>
+        </ul>
+      </section>
+
+      <section class="card" aria-labelledby="why-heading">
+        <h2 id="why-heading">Why we trust these / why we ban those</h2>
+        <p class="lede">
+          <strong>Why we trust the allowed list:</strong> They are primary filings, issuer documents,
+          or official letters from the locked managers. You can check the original, see the date,
+          and know who published it. That fits a long-term educational project — not a tip sheet.
+        </p>
+        <p class="lede">
+          <strong>Why we ban the rest:</strong> Social clips, anonymous lists, and “guaranteed”
+          pitches are easy to hype and hard to verify. Other managers are out of scope by design.
+          A 13F is a delayed snapshot (~45 days), not a live buy signal — treating it as one is banned.
+        </p>
+      </section>
+
+      <section class="card" aria-labelledby="where-heading">
+        <h2 id="where-heading">Where to look</h2>
+        <ul class="where-list">
+          <li>
+            <strong>SEC EDGAR</strong> —
+            <a class="source-link" href="https://www.sec.gov/edgar" target="_blank" rel="noopener noreferrer">sec.gov/edgar</a>
+            for 10-K, 10-Q, 8-K, and 13F-HR. 13Fs are delayed about <strong>~45 days</strong> after quarter-end — context only, not a buy list.
+          </li>
+          <li>
+            <strong>Company IR</strong> — search
+            <em>“[company] investor relations”</em> for official earnings releases and transcripts.
+          </li>
+          <li>
+            <strong>ETF fact sheets</strong> — issuer sites (Vanguard, iShares / BlackRock, Schwab, etc.) for the official PDF fact sheet for each ETF ticker.
+          </li>
+          <li>
+            <strong>Berkshire letter</strong> — Berkshire Hathaway annual shareholder letter (company site / annual report).
+          </li>
+          <li>
+            <strong>Pershing Square / Third Point / ARK / AQR</strong> — official investor letters, holdings files, or research pages from those firms only (see locked 12 below).
+          </li>
+          <li>
+            <strong>Damodaran (context)</strong> —
+            <a class="source-link" href="https://pages.stern.nyu.edu/~adamodar/" target="_blank" rel="noopener noreferrer">pages.stern.nyu.edu/~adamodar/</a>
+            (or the current official Damodaran data site) for industry averages — context, not a stock pick.
+          </li>
+        </ul>
+        <p class="note asof-note sources-delay-note">
+          Reminder: any 13F used for style context is delayed. Never treat it as a live shopping list.
+        </p>
+      </section>
+
+      <section class="card" aria-labelledby="managers-heading">
+        <h2 id="managers-heading">Locked 12 managers (reminder)</h2>
+        <p class="lede sources-intro">
+          Only these names are in-bounds for 13Fs / official letters / process notes. Names only — not a buy list.
+        </p>
+
+        <div class="bucket bucket-red">
+          <p class="bucket-label">RED — Extra high satellite only</p>
+          <ul class="bucket-list">
+            <li>Leopold Aschenbrenner / Situational Awareness LP</li>
+            <li>Bill Ackman / Pershing Square</li>
+            <li>Cathie Wood / ARK Invest</li>
+          </ul>
+        </div>
+
+        <div class="bucket bucket-yellow">
+          <p class="bucket-label">YELLOW — High sleeve only</p>
+          <ul class="bucket-list">
+            <li>Chase Coleman / Tiger Global</li>
+            <li>David Tepper / Appaloosa</li>
+            <li>Dan Loeb / Third Point</li>
+          </ul>
+        </div>
+
+        <div class="bucket bucket-green">
+          <p class="bucket-label">GREEN — process notes only, never clone</p>
+          <ul class="bucket-list">
+            <li>Ken Griffin / Citadel</li>
+            <li>Israel Englander / Millennium</li>
+            <li>Cliff Asness / AQR</li>
+          </ul>
+          <p class="note citadel-line">Citadel / Millennium: <strong>not copyable</strong> — one line only in plans.</p>
+        </div>
+
+        <div class="bucket bucket-blue">
+          <p class="bucket-label">BLUE — Extra low / Low / long-term core</p>
+          <ul class="bucket-list">
+            <li>Warren Buffett / Berkshire Hathaway</li>
+            <li>Seth Klarman / Baupost</li>
+            <li>Ray Dalio / Bridgewater All Weather principles</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Educational use only</h2>
+        <p class="lede">
+          This Investor Guide is for a college-application project. It is
+          <strong>not personalized financial advice</strong>, not a recommendation to buy or sell,
+          and not an offer from a broker or advisor.
+        </p>
+        <span class="badge-edu">Educational · Not personalized advice</span>
+      </section>
+
+      <div class="actions">
+        <a class="btn btn-primary" href="index.html">Home</a>
+        <a class="btn btn-secondary" href="plan.html">Plan</a>
+        <a class="btn btn-ghost" href="disclaimer.html">Disclaimer</a>
+      </div>
+    </main>
+
+    <footer class="footer-nav">
+      <a href="index.html">Home</a>
+      <a href="disclaimer.html">Disclaimer</a>
+      <a href="sources.html" aria-current="page">Sources</a>
+      <a href="watchlist.html">Watchlist</a>
+      <a href="research.html">Research</a>
+    </footer>
+  </div>
+</body>
+</html>

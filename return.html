@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="description" content="Educational Investor Guide: a phone-friendly quiz that builds a sample long-term plan of real ETFs and companies, with research cards built from SEC filings. College-application project. Not financial advice." />
+  <meta name="theme-color" content="#1b6b4a" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Investor Guide — educational project" />
+  <meta property="og:description" content="Risk-first quiz → sample plan of real ETFs and companies, with research cards from SEC filings. Educational only, not financial advice." />
+  <meta property="og:image" content="icon-512.png" />
+  <meta name="twitter:card" content="summary" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="favicon.ico" sizes="32x32" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+  <link rel="manifest" href="site.webmanifest" />
+  <title>Investor Guide — Expected return</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <p class="brand">Step 2 · Return</p>
+      <h1>What return range are you hoping for?</h1>
+      <span class="badge-edu">Educational · Not a forecast</span>
+      <div class="progress" role="progressbar" aria-valuemin="1" aria-valuemax="6" aria-valuenow="3" aria-label="Quiz progress: Return">
+        <span class="on"></span><span class="on"></span><span class="on"></span><span></span><span></span><span></span>
+      </div>
+      <p class="progress-caption">Welcome · Risk → <strong>Return</strong> · Sectors · Review · Plan</p>
+    </header>
+
+    <main class="main">
+      <p class="lede" style="margin-top:0">
+        Educational ranges only — not promises. If your target conflicts with your risk
+        (for example 20%+ at Extra low), the plan will say that mix is unrealistic and
+        still show options A and B.
+      </p>
+
+      <div class="option-list" role="listbox" aria-label="Expected return">
+        <button type="button" class="option" data-value="4–6%">4–6%</button>
+        <button type="button" class="option" data-value="6–8%">6–8%</button>
+        <button type="button" class="option" data-value="8–12%">8–12%</button>
+        <button type="button" class="option" data-value="12–20%">12–20%</button>
+        <button type="button" class="option" data-value="20%+">20%+</button>
+      </div>
+
+      <div class="actions sticky-actions">
+        <a id="btn-continue" class="btn btn-primary is-disabled" href="sectors.html">Continue</a>
+        <a class="btn btn-secondary" href="risk.html">Back</a>
+      </div>
+    </main>
+
+    <footer class="footer-nav">
+      <a href="index.html">Home</a>
+      <a href="disclaimer.html">Disclaimer</a>
+      <a href="sources.html">Sources</a>
+      <a href="watchlist.html">Watchlist</a>
+      <a href="research.html">Research</a>
+    </footer>
+  </div>
+  <script src="js/app.js"></script>
+  <script>
+    if (!IG.requireAnswers(["disclaimerAck", "risk"])) location.replace("index.html");
+    IG.bindOptions({ key: "return" });
+  </script>
+</body>
+</html>

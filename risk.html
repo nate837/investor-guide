@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="description" content="Educational Investor Guide: a phone-friendly quiz that builds a sample long-term plan of real ETFs and companies, with research cards built from SEC filings. College-application project. Not financial advice." />
+  <meta name="theme-color" content="#1b6b4a" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Investor Guide — educational project" />
+  <meta property="og:description" content="Risk-first quiz → sample plan of real ETFs and companies, with research cards from SEC filings. Educational only, not financial advice." />
+  <meta property="og:image" content="icon-512.png" />
+  <meta name="twitter:card" content="summary" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="favicon.ico" sizes="32x32" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+  <link rel="manifest" href="site.webmanifest" />
+  <title>Investor Guide — Risk</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <p class="brand">Step 1 · Risk</p>
+      <h1>How much risk can you accept?</h1>
+      <span class="badge-edu">Educational · Not personalized advice</span>
+      <div class="progress" role="progressbar" aria-valuemin="1" aria-valuemax="6" aria-valuenow="2" aria-label="Quiz progress: Risk">
+        <span class="on"></span><span class="on"></span><span></span><span></span><span></span><span></span>
+      </div>
+      <p class="progress-caption">Welcome → <strong>Risk</strong> · Return · Sectors · Review · Plan</p>
+    </header>
+
+    <main class="main">
+      <p class="lede" style="margin-top:0">
+        Choose one level. The plan optimizes for the <strong>best long-term outcome for this risk</strong>
+        (about 7–15+ years), not the juiciest tickers.
+      </p>
+
+      <div class="option-list" role="listbox" aria-label="Risk level">
+        <button type="button" class="option" data-value="Extra high">
+          Extra high
+          <span class="hint">Large swings OK; small RED satellite possible</span>
+        </button>
+        <button type="button" class="option" data-value="High">
+          High
+          <span class="hint">Big ups and downs; YELLOW sleeve possible</span>
+        </button>
+        <button type="button" class="option" data-value="High-medium">
+          High-medium
+          <span class="hint">BLUE core + optional light factor tilt</span>
+        </button>
+        <button type="button" class="option" data-value="Medium-low">
+          Medium-low
+          <span class="hint">BLUE core + optional light factor tilt</span>
+        </button>
+        <button type="button" class="option" data-value="Low">
+          Low
+          <span class="hint">BLUE only — capital preservation more important</span>
+        </button>
+        <button type="button" class="option" data-value="Extra low">
+          Extra low
+          <span class="hint">BLUE only — minimize loss risk</span>
+        </button>
+      </div>
+
+      <div class="actions sticky-actions">
+        <a id="btn-continue" class="btn btn-primary is-disabled" href="return.html">Continue</a>
+        <a class="btn btn-secondary" href="index.html">Back</a>
+      </div>
+    </main>
+
+    <footer class="footer-nav">
+      <a href="index.html">Home</a>
+      <a href="disclaimer.html">Disclaimer</a>
+      <a href="sources.html">Sources</a>
+      <a href="watchlist.html">Watchlist</a>
+      <a href="research.html">Research</a>
+    </footer>
+  </div>
+  <script src="js/app.js"></script>
+  <script>
+    if (!IG.getAnswers().disclaimerAck) location.replace("index.html");
+    IG.bindOptions({ key: "risk" });
+  </script>
+</body>
+</html>

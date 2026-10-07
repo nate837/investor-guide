@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="description" content="Educational Investor Guide: a phone-friendly quiz that builds a sample long-term plan of real ETFs and companies, with research cards built from SEC filings. College-application project. Not financial advice." />
+  <meta name="theme-color" content="#1b6b4a" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Investor Guide — educational project" />
+  <meta property="og:description" content="Risk-first quiz → sample plan of real ETFs and companies, with research cards from SEC filings. Educational only, not financial advice." />
+  <meta property="og:image" content="icon-512.png" />
+  <meta name="twitter:card" content="summary" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="favicon.ico" sizes="32x32" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+  <link rel="manifest" href="site.webmanifest" />
+  <title>Investor Guide — Sectors</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <p class="brand">Step 3 · Sectors</p>
+      <h1>Any preferred sectors?</h1>
+      <span class="badge-edu">Educational · Diversify first</span>
+      <div class="progress" role="progressbar" aria-valuemin="1" aria-valuemax="6" aria-valuenow="4" aria-label="Quiz progress: Sectors">
+        <span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span></span><span></span>
+      </div>
+      <p class="progress-caption">Welcome · Risk · Return → <strong>Sectors</strong> · Review · Plan</p>
+    </header>
+
+    <main class="main">
+      <p class="lede" style="margin-top:0">
+        Tap one or more, or choose no preference. Sector tilt is allowed;
+        never 100% one sector unless Extra high and concentration is accepted.
+      </p>
+
+      <div class="option-list" role="group" aria-label="Sectors">
+        <button type="button" class="option" data-value="none">No preference</button>
+        <button type="button" class="option" data-value="Technology">Technology</button>
+        <button type="button" class="option" data-value="Healthcare">Healthcare</button>
+        <button type="button" class="option" data-value="Financials">Financials</button>
+        <button type="button" class="option" data-value="Energy">Energy</button>
+        <button type="button" class="option" data-value="Consumer">Consumer</button>
+        <button type="button" class="option" data-value="Industrials">Industrials</button>
+      </div>
+
+      <div class="actions sticky-actions">
+        <a id="btn-continue" class="btn btn-primary is-disabled" href="review.html">Continue to review</a>
+        <a class="btn btn-secondary" href="return.html">Back</a>
+      </div>
+    </main>
+
+    <footer class="footer-nav">
+      <a href="index.html">Home</a>
+      <a href="disclaimer.html">Disclaimer</a>
+      <a href="sources.html">Sources</a>
+      <a href="watchlist.html">Watchlist</a>
+      <a href="research.html">Research</a>
+    </footer>
+  </div>
+  <script src="js/app.js"></script>
+  <script>
+    if (!IG.requireAnswers(["disclaimerAck", "risk", "return"])) location.replace("index.html");
+    IG.bindOptions({ key: "sectors", multi: true });
+  </script>
+</body>
+</html>

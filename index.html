@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="description" content="Educational Investor Guide: a phone-friendly quiz that builds a sample long-term plan of real ETFs and companies, with research cards built from SEC filings. College-application project. Not financial advice." />
+  <meta name="theme-color" content="#1b6b4a" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Investor Guide — educational project" />
+  <meta property="og:description" content="Risk-first quiz → sample plan of real ETFs and companies, with research cards from SEC filings. Educational only, not financial advice." />
+  <meta property="og:image" content="icon-512.png" />
+  <meta name="twitter:card" content="summary" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="favicon.ico" sizes="32x32" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+  <link rel="manifest" href="site.webmanifest" />
+  <title>Investor Guide — Welcome</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <p class="brand">Investor Guide · Session 4</p>
+      <h1>Welcome — read this first</h1>
+      <span class="badge-edu">Educational · College-app project · Not advice</span>
+      <div class="progress" role="progressbar" aria-valuemin="1" aria-valuemax="6" aria-valuenow="1" aria-label="Quiz progress: Welcome">
+        <span class="on"></span><span></span><span></span><span></span><span></span><span></span>
+      </div>
+      <p class="progress-caption">Welcome · Risk · Return · Sectors · Review · Plan</p>
+    </header>
+
+    <main class="main">
+      <section class="card home-hero">
+        <div class="emoji" aria-hidden="true">📘</div>
+        <h2>What this is</h2>
+        <p class="lede">
+          A phone-friendly educational tool for Nate’s college-application project.
+          Answer a short quiz (risk, return, sectors), review your choices, then see
+          a long-term plan (about <strong>7–15+ years</strong>) built for your risk level.
+        </p>
+        <p class="lede">
+          No live prices. No market-wide scan. The watchlist shows one delayed
+          end-of-day snapshot, not a live quote. Not personalized financial advice.
+          Markets can lose money. Past performance does not predict future results.
+        </p>
+      </section>
+
+      <section class="card">
+        <h2>Disclaimer (required)</h2>
+        <div class="disclaimer-box" id="locked-disclaimer">
+          <p>This Investor Guide is an educational tool for a college-application project. It is not personalized financial advice, not a recommendation to buy or sell anything, and not an offer from a broker or advisor. Markets can lose money. Past performance does not predict future results. If your return target conflicts with your risk level (for example, 20%+ at Extra low risk), the app will say that mix is unrealistic and still show the best plan for the risk you chose, plus an optional stretch plan that accepts much larger loss risk. You are responsible for any real-world decisions you make.</p>
+        </div>
+        <label class="check-row">
+          <input type="checkbox" id="ack" />
+          <span>I have read this disclaimer and understand this is educational only, not personalized advice.</span>
+        </label>
+      </section>
+
+      <div class="actions sticky-actions">
+        <a id="btn-continue" class="btn btn-primary is-disabled" href="risk.html">Start quiz</a>
+        <a class="btn btn-ghost" href="sources.html">Sources policy</a>
+        <a class="btn btn-ghost" href="disclaimer.html">Disclaimer page</a>
+      </div>
+    </main>
+
+    <footer class="footer-nav">
+      <a href="index.html">Home</a>
+      <a href="disclaimer.html">Disclaimer</a>
+      <a href="sources.html">Sources</a>
+      <a href="watchlist.html">Watchlist</a>
+      <a href="research.html">Research</a>
+    </footer>
+  </div>
+  <script src="js/app.js"></script>
+  <script>
+    IG.bindDisclaimerGate();
+  </script>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="description" content="Educational Investor Guide: a phone-friendly quiz that builds a sample long-term plan of real ETFs and companies, with research cards built from SEC filings. College-application project. Not financial advice." />
+  <meta name="theme-color" content="#1b6b4a" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Investor Guide — educational project" />
+  <meta property="og:description" content="Risk-first quiz → sample plan of real ETFs and companies, with research cards from SEC filings. Educational only, not financial advice." />
+  <meta property="og:image" content="icon-512.png" />
+  <meta name="twitter:card" content="summary" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="favicon.ico" sizes="32x32" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+  <link rel="manifest" href="site.webmanifest" />
+  <title>Investor Guide — Reject / New plan</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <p class="brand">Reject · New plan</p>
+      <h1>Same answers, different mix</h1>
+      <span class="badge-edu">Educational · Honesty unchanged</span>
+      <p class="progress-caption">Same answers · alternate holdings mix</p>
+    </header>
+
+    <main class="main">
+      <div class="answers-chip" id="answers-summary"></div>
+
+      <section class="card">
+        <h2>What stays the same</h2>
+        <p class="lede">
+          Your <strong>risk</strong>, <strong>return target</strong>, and <strong>sectors</strong>
+          are kept. We change the mix — not honesty. No fake “safe high return.”
+        </p>
+      </section>
+
+      <div id="plan-root"></div>
+
+      <div class="actions sticky-actions">
+        <a class="btn btn-primary" href="reject.html" id="btn-another">Try another mix</a>
+        <a class="btn btn-secondary" href="plan.html">View as main plan</a>
+        <a class="btn btn-secondary" href="research.html">Research cards (EDGAR + IR)</a>        <a class="btn btn-secondary" href="watchlist.html">Watchlist (delayed prices)</a>
+        <a class="btn btn-secondary" href="review.html">Back to review</a>
+        <a class="btn btn-ghost" href="index.html" id="btn-restart">Start over</a>
+      </div>
+    </main>
+
+    <footer class="footer-nav">
+      <a href="index.html">Home</a>
+      <a href="disclaimer.html">Disclaimer</a>
+      <a href="sources.html">Sources</a>
+      <a href="watchlist.html">Watchlist</a>
+      <a href="research.html">Research</a>
+    </footer>
+  </div>
+  <script src="js/app.js"></script>
+  <script src="js/generator.js"></script>
+  <script src="js/render-plan.js"></script>
+  <script>
+    if (!IG.requireAnswers(["disclaimerAck", "risk", "return", "sectors"])) {
+      location.replace("index.html");
+    } else {
+      /* Ensure we are on an alternate (if arrived with variant 0 from plan click, nextPlanVariant already ran) */
+      var v = IG.getPlanVariant();
+      IG.fillAnswersSummary(document.getElementById("answers-summary"), "Kept answers");
+      var plan = IGPlan.generate(IG.getAnswers());
+      IGRender.renderPlanInto(document.getElementById("plan-root"), plan, {
+        banner: "Alternate mix #" + (v + 1) + " of 3 · same risk / return / sectors",
+      });
+      document.getElementById("btn-another").addEventListener("click", function (e) {
+        e.preventDefault();
+        IG.nextPlanVariant();
+        location.reload();
+      });
+      document.getElementById("btn-restart").addEventListener("click", function () {
+        IG.clearAnswers();
+      });
+    }
+  </script>
+</body>
+</html>
