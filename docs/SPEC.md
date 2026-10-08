@@ -1,11 +1,11 @@
-# Investor Guide — Product Spec (Session 9)
+# Investor Guide — Product Spec (Session 10)
 
 **Owner:** Nate  
 **Assistant:** Karen  
 **Product:** Phone-friendly Investor Guide web app for a college-application project  
 **Purpose:** Educational only — not for making money  
-**Horizon:** Long-term, about **7–15+ years**  
-**Session:** **9** — New risk ladder (more single companies and riskier tiers as risk rises), deeper research cards for every company, and deploy-ready website. Sessions 1–8 intact except the Session 3 holdings caps, which Session 9 replaces (§7).
+**Horizon:** chosen by the user in the quiz (Session 10: 1–50 years; presets 1 / 3 / 5 / 10 / 15 / 20+). Short periods for the risk level get a warning.  
+**Session:** **10** — Bigger ladder at higher risk (up to 25–35 companies at Extra high), quiz asks starting amount (+ optional monthly addition) and time period, smaller amounts get fewer companies and more ETFs, dollar amount per holding, illustrative growth range, 175-company universe. See §20. Sessions 1–9 intact except the §7 ladder numbers, which Session 10 updates.
 
 ---
 
@@ -30,6 +30,8 @@ Labeled educational / not personalized advice. No live prices on the plan. Sessi
 | 1 | **Welcome + disclaimer** | What-this-is + locked disclaimer; must acknowledge |
 | 2 | **Risk** | Extra high / High / High-medium / Medium-low / Low / Extra low |
 | 3 | **Return** | 4–6% / 6–8% / 8–12% / 12–20% / 20%+ |
+| 3b | **Money** (Session 10, `money.html`) | Starting amount (presets $500 / $1,000 / $5,000 / $10,000 / $25,000+ or typed, $100–$10,000,000) + optional monthly addition ($0 default) |
+| 3c | **Time** (Session 10, `time.html`) | Time period in years (presets 1 / 3 / 5 / 10 / 15 / 20+, or slider 1–40); live short-period warning |
 | 4 | **Sectors** | Preferred sectors or “no preference” |
 | 5 | **Review** | Show chosen answers; confirm |
 | 6 | **Plan** | Disclaimer reminder + holdings table A + B + research block |
@@ -39,19 +41,19 @@ Labeled educational / not personalized advice. No live prices on the plan. Sessi
 
 Always reachable: Disclaimer page, Sources policy, Watchlist.
 
-Progress indicator (Session 4): Welcome → Risk → Return → Sectors → Review → Plan.
+Progress indicator (Session 10): Welcome → Risk → Return → Money → Time → Sectors → Review → Plan (8 steps).
 
 ---
 
 ## 3. User flow
 
 ```
-Welcome+disclaimer → Risk → Return → Sectors → Review → Plan
+Welcome+disclaimer → Risk → Return → Money → Time → Sectors → Review → Plan
                                                          ↓
                                               Reject / New plan (cycle mixes)
 ```
 
-Answers persist in `sessionStorage`. Reject keeps risk, return, and sectors; changes tickers and/or weights.
+Answers persist in `sessionStorage` (Session 10 adds `amount`, `monthly`, `years` to the same object). Reject keeps risk, return, amount, time period, and sectors; changes tickers and/or weights.
 
 Always reachable from footer: **Home · Disclaimer · Sources · Watchlist**.
 
@@ -106,65 +108,69 @@ Session 9 note: the color mapping is unchanged and is still style framing only. 
 
 ---
 
-## 7. Holdings rules by risk (Session 9 ladder — replaces the Session 3 caps)
+## 7. Holdings rules by risk (Session 10 ladder — replaces the Session 9 numbers)
 
-Nate's rule: lower risk = ETFs and very safe companies; as risk goes up, bring in higher-risk, higher-reward companies and use fewer ETFs.
+Nate's rule: lower risk = ETFs and very safe companies; as risk goes up, bring in higher-risk, higher-reward companies and use fewer ETFs. Session 10: more companies at higher risk, and **less money = fewer companies / more ETFs** (§20).
+
+**Full size (starting amount $10,000 or more):**
 
 | Risk | ETF % | Companies | Max % each company | Company tiers pulled |
 |------|-------|-----------|--------------------|----------------------|
 | Extra low | 85–95% (broad + bond / T-bill) | 1–3 | 5% | Very safe mega-cap Defensive (JNJ, PG, KO, PEP, WMT, COST, MCD, BRK.B, MRK, ABT) first |
 | Low | 70–85% | 3–5 | 6% | Defensive (mega-cap core first), then Steady |
-| Medium-low | 55–70% | 5–8 | 7% | Mostly Steady / Defensive + 1–2 Growth ("quality growers") |
-| High-medium | 40–55% | 8–12 | 8% | ~60% Steady / Defensive, ~40% Growth |
-| High | 20–35% | 12–16 | 10% | ~half Steady large caps, ~half Growth (about a third of that half Aggressive growth) |
-| Extra high | 10–20% | 15–22 | 12% | ~75% Growth + Aggressive growth (Aggressive first), ~25% Steady anchors |
+| Medium-low | 55–70% | 6–9 | 7% | Mostly Steady / Defensive + 1–2 Growth ("quality growers") |
+| High-medium | 40–55% | 10–15 | 8% | ~60% Steady / Defensive, ~40% Growth |
+| High | 15–30% | 18–25 | 10% | ~half Steady large caps, ~half Growth (about a third of that half Aggressive growth) |
+| Extra high | 8–18% | 25–35 | 12% | ~75% Growth + Aggressive growth (Aggressive first), ~25% Steady anchors |
 
 All companies are US-listed, exchange-traded, and file 10-Ks. No penny stocks, OTC, options, leverage, or crypto.
 
-**Variants (Reject / New plan):** three per risk level, each with its own ETF mix, company count, and sector/tier rotation (e.g. Extra high = 15 / 18 / 22 companies at 18 / 14 / 11% ETFs). Every Reject changes tickers and weights.
+**Variants (Reject / New plan):** three per risk level, each with its own ETF mix, company count, and sector/tier rotation. Full-size counts: Extra low 1 / 2 / 3 · Low 3 / 4 / 5 · Medium-low 6 / 8 / 9 · High-medium 10 / 12 / 15 · High 18 / 21 / 25 · Extra high 25 / 30 / 35 (at 16 / 12 / 9% ETFs). Every Reject changes tickers and weights.
 
-**Weights:** whole-number %, sum to 100, each company between 1% and the cap. Company weights tilt toward the first names picked (flat at Extra low, steepest at Extra high), so at Extra high the Aggressive-growth names get the largest weights.
+**Weights (Session 10):** whole-number %, sum to 100, each company between its floor (1%, or more at small amounts so it stays ≥ ~$50) and the cap. Weights taper geometrically from the first (top-conviction) name: at High-medium, High and Extra high the top name reaches the cap (8 / 10 / 12%), Medium-low gets close to it, Extra low is flat. At Extra high the Aggressive-growth names come first, so they get the largest weights.
 
 **Safety tiers** (tagged on every company in `js/generator.js` and `js/research-data.js`): **Defensive** (needed in any economy, steady dividends) · **Steady** (large, established, cyclical but durable) · **Growth** (more upside, more swing) · **Aggressive growth** (biggest upside and biggest swings; High and Extra high only).
 
-**Universe (Session 9):** 116 companies — Technology 21, Healthcare 20, Financials 18, Energy 18, Consumer 19, Industrials 20. By tier: Defensive 19, Steady 38, Growth 34, Aggressive growth 25. Companies whose main business is running investment funds are left out, so no fund firm outside the locked 12 shows up as a holding.
+**Universe (Session 10):** 175 companies — Technology 31, Healthcare 30, Financials 28, Energy 28, Consumer 29, Industrials 29 (every sector alone can fill Extra high's 25-company minimum). By tier: Defensive 27, Steady 53, Growth 52, Aggressive growth 43. Session 9 had 116; Session 10 added 59 (8 Defensive, 15 Steady, 18 Growth, 18 Aggressive growth). Companies whose main business is running investment funds are left out, so no fund firm outside the locked 12 shows up as a holding.
 
 ### Required holdings table columns
 
-**Ticker | Name | Type (ETF or Company) | Sleeve (Core / Tilt / Satellite) | % | Why | Source type** — the Why column now ends with the company's safety tier.
+**Ticker | Name | Type (ETF or Company) | Sleeve (Core / Tilt / Satellite) | % | $ | Why | Source type** — the Why column ends with the company's safety tier; Session 10 adds the rounded dollar amount next to %.
 
 ### Sector rule
 
 - If the user picked sectors, **company tickers MUST be in those sectors**.
 - If the picked sectors have fewer names than the variant wants but at least the risk level's minimum, the plan uses all of them (and says so).
-- Only if the picked sectors have fewer names than the minimum does the plan fill from the broad list; those rows are marked "outside your sectors" and the plan shows a note. With the Session 9 universe (18+ names per sector) this never triggers; the test forces it to prove it works.
+- Only if the picked sectors have fewer names than the minimum does the plan fill from the broad list; those rows are marked "outside your sectors" and the plan shows a note. With the Session 10 universe (28+ names per sector) this never triggers; the test forces it to prove it works.
 - If a sector lacks the preferred tier (e.g. no Defensive names in Technology), the next tier is used and the plan says so.
 - No preference = names spread round-robin across all six sectors.
 
-### Sample (must be reproducible) — changed in Session 9
+### Sample (must be reproducible) — changed in Session 10
 
-The Session 3 sample (High-medium · 8–12% · Technology + Healthcare: 61% ETFs + MSFT/GOOGL/LLY/UNH/JNJ) **no longer applies**: it broke the new 40–55% ETF band and 8–12 company count. The same answers (variant 0) now produce:
+The same answers as before (High-medium · 8–12% · Technology + Healthcare, variant 0), with a $25,000 starting amount, now produce:
 
-| Ticker | Name | Type | Sleeve | % | Why | Source type |
-|--------|------|------|--------|---|-----|-------------|
-| VTI | Vanguard Total Stock Market ETF | ETF | Core | 24% | Broad U.S. ownership | Official ETF fact sheet |
-| VXUS | Vanguard Total International Stock ETF | ETF | Core | 10% | Global diversification | Official ETF fact sheet |
-| BND | Vanguard Total Bond Market ETF | ETF | Core | 12% | Shock buffer | Official ETF fact sheet |
-| VLUE | iShares MSCI USA Value Factor ETF | ETF | Tilt | 6% | Light AQR-style factor tilt | ETF fact sheet; AQR papers |
-| MSFT | Microsoft | Company | Tilt | 7% | Software + cloud giant · Steady | SEC 10-K; IR |
-| ABBV | AbbVie | Company | Tilt | 7% | Immunology + aesthetics drugs · Steady | SEC 10-K; IR |
-| AAPL | Apple | Company | Tilt | 7% | Consumer tech + services · Steady | SEC 10-K; IR |
-| TMO | Thermo Fisher Scientific | Company | Tilt | 6% | Lab tools + services · Steady | SEC 10-K; IR |
-| GOOGL | Alphabet | Company | Tilt | 6% | Search, YouTube, cloud · Steady | SEC 10-K; IR |
-| NVDA | NVIDIA | Company | Tilt | 5% | AI chips leader · Growth | SEC 10-K; IR |
-| LLY | Eli Lilly | Company | Tilt | 5% | Diabetes + obesity drugs · Growth | SEC 10-K; IR |
-| AVGO | Broadcom | Company | Tilt | 5% | AI networking chips + software · Growth | SEC 10-K; IR |
+| Ticker | Name | Type | Sleeve | % | $ | Why | Source type |
+|--------|------|------|--------|---|---|-----|-------------|
+| VTI | Vanguard Total Stock Market ETF | ETF | Core | 24% | $6,000 | Broad U.S. ownership | Official ETF fact sheet |
+| VXUS | Vanguard Total International Stock ETF | ETF | Core | 10% | $2,500 | Global diversification | Official ETF fact sheet |
+| BND | Vanguard Total Bond Market ETF | ETF | Core | 12% | $3,000 | Shock buffer | Official ETF fact sheet |
+| VLUE | iShares MSCI USA Value Factor ETF | ETF | Tilt | 6% | $1,500 | Light AQR-style factor tilt | ETF fact sheet; AQR papers |
+| MSFT | Microsoft | Company | Tilt | 8% | $2,000 | Software + cloud giant · Steady | SEC 10-K; IR |
+| ABBV | AbbVie | Company | Tilt | 7% | $1,750 | Immunology + aesthetics drugs · Steady | SEC 10-K; IR |
+| AAPL | Apple | Company | Tilt | 6% | $1,500 | Consumer tech + services · Steady | SEC 10-K; IR |
+| TMO | Thermo Fisher Scientific | Company | Tilt | 5% | $1,250 | Lab tools + services · Steady | SEC 10-K; IR |
+| GOOGL | Alphabet | Company | Tilt | 5% | $1,250 | Search, YouTube, cloud · Steady | SEC 10-K; IR |
+| UNH | UnitedHealth Group | Company | Tilt | 4% | $1,000 | Health insurance + Optum · Steady | SEC 10-K; IR |
+| NVDA | NVIDIA | Company | Tilt | 4% | $1,000 | AI chips leader · Growth | SEC 10-K; IR |
+| LLY | Eli Lilly | Company | Tilt | 3% | $750 | Diabetes + obesity drugs · Growth | SEC 10-K; IR |
+| AVGO | Broadcom | Company | Tilt | 3% | $750 | AI networking chips + software · Growth | SEC 10-K; IR |
+| ISRG | Intuitive Surgical | Company | Tilt | 3% | $750 | Surgical robots · Growth | SEC 10-K; IR |
 
-52% ETFs · 8 companies · max 7%.
+52% ETFs · 10 companies · max 8% (top name at the cap, tapering down).
 
 ### Test
 
-`node tests/generator.test.js` runs every risk (6) × return (5) × sector choice (64: no preference + all 63 combinations) × variant (3) = 5,760 combos and checks Plan A and Plan B for: sum = 100, whole-number weights, ETF % in band, company count in band, per-company cap, no duplicates, sector compliance (and that broad-list fill only happens when it must, with a note), tier rules, Reject variants all differ, stretch plan = next risk level, conflict flag, only locked-12 names, and a research card for every company. It also forces a thin sector to test the fill path.
+`node tests/generator.test.js` runs every risk (6) × return (5) × sector choice (64: no preference + all 63 combinations) × variant (3) × starting amount (12: $100 / $500 / $850 · $1,000 / $3,000 / $4,999 · $5,000 / $7,500 / $9,999 · $10,000 / $25,000 / $250,000) × time period (3: 1 / 4 / 10 years) = 207,360 combos and checks Plan A and Plan B for: sum = 100, whole-number weights, ETF % in the band for that amount, company count (full and scaled, or dollar-limited with a note), per-company cap, every company ≥ ~$50 and every ETF ≥ ~$25, the $ column, fewer-or-equal companies and more-or-equal ETF than the $10,000 version, the amount note, the fractional-share note, tapering weights (top name at the cap at High / Extra high full size), no duplicates, sector compliance (and broad-list fill only when it must, with a note), tier rules, Reject variants all differ, holdings don't change with the time period, stretch plan = next risk level, conflict flag, only locked-12 names, a research card for every company, horizon warnings (plus boundary years 1–30), projection rows ordered and labeled illustrative, and a loss in the bad case for High / Extra high at 1–4 years. The full ladder is hard-coded in the test from Nate's numbers. It also forces a thin sector to test the fill path.
 
 ## 8. Allowed reports only (Session 5 — Trusted Sources page)
 
@@ -281,7 +287,8 @@ Upgrade `sources.html` (and CSS as needed) into a real phone-friendly Trusted So
 | **6** | Watchlist + delayed prices | **Done** |
 | **7** | EDGAR research card page | **Done** |
 | **8** | College-app writeup | **Done** |
-| **9** | New risk ladder + deeper research cards + real website | **Done (deploy-ready; see §19)** |
+| **9** | New risk ladder + deeper research cards + real website | **Done (live; see §19)** |
+| **10** | More companies at higher risk + starting amount + time period | **Done locally (see §20); not pushed** |
 
 **Do not implement Session 7+ in Session 6.**
 
@@ -336,10 +343,42 @@ Upgrade `sources.html` (and CSS as needed) into a real phone-friendly Trusted So
 ## 19. Session 9 — Aggressive ladder, deeper research, website (done)
 
 - **Ladder:** §7 replaces the Session 3 caps. Generator rewritten around safety tiers; return-vs-risk conflict behavior (A = best plan for the risk + B = optional stretch at the next risk level) unchanged.
-- **Research cards (`research.html`, `js/research-data.js`, `js/research.js`):** one deep card for each of the 116 companies: sector, safety tier + why it fits, plain-English "what the business does", 2–4 key risks from the latest 10-K Item 1A (filing date cited and linked), "what to check next" (segments, margins, debt, guidance), EDGAR 10-K / all-filings links, and the official IR link when verified. `research.html?view=all` is a library of all 116 with tier and sector filters (no quiz needed). No numbers quoted; no buy/sell calls.
+- **Research cards (`research.html`, `js/research-data.js`, `js/research.js`):** one deep card for each of the 116 companies: sector, safety tier + why it fits, plain-English "what the business does", 2–4 key risks from the latest 10-K Item 1A (filing date cited and linked), "what to check next" (segments, margins, debt, guidance), EDGAR 10-K / all-filings links, and the official IR link when verified. `research.html?view=all` is a library of every company (116 in Session 9; 175 after Session 10, §20) with tier and sector filters (no quiz needed). No numbers quoted; no buy/sell calls.
 - **Sourcing:** CIKs from SEC `company_tickers.json` (descriptive User-Agent). Latest 10-K per company from `data.sec.gov` submissions; Item 1 / Item 1A text extracted; every business line and risk keyword-checked against that text. IR URLs fetched 2026-10-07; 20 could not be verified (bot protection) and are omitted with a "search the official IR site" note.
 - **Website:** static, relative paths only, `404.html`, favicon (SVG / ICO / PNG), `site.webmanifest`, meta description / Open Graph tags on every page, `.nojekyll`, `robots.txt`. Works on GitHub Pages, Netlify, Vercel, Cloudflare Pages, or any static host. No backend.
 - **Unchanged:** locked disclaimer (verbatim), the 12 locked managers + color mapping, allowed / banned sources, no live prices (watchlist stays one delayed EOD snapshot; new tickers show as unpriced there), phone layout.
+
+## 20. Session 10 — More companies, starting amount, time period (done locally, not pushed)
+
+- **Quiz:** two new steps after Return: **Money** (`money.html`: starting amount presets $500 / $1,000 / $5,000 / $10,000 / $25,000+ or typed $100–$10,000,000; optional monthly addition, $0 default) and **Time** (`time.html`: presets 1 / 3 / 5 / 10 / 15 / 20+ years or a 1–40 slider; shows the short-period warning live). Stored as `amount`, `monthly`, `years` in the same `sessionStorage` object; shown on Review and in the plan header. Progress bar now has 8 steps. Old sessions without an amount are sent to the Money step.
+- **Ladder:** §7 full-size table (applies at $10,000+). Weights taper so top-conviction names use the cap.
+- **Amount scaling (`bandRules`, `buildPlan` in `js/generator.js`):**
+
+| Band | Company-count factor | Company share kept | Example: Extra high | Example: High |
+|------|---------------------|--------------------|---------------------|---------------|
+| $10,000 or more | ×1 | ×1 | 25–35 cos, 8–18% ETFs | 18–25 cos, 15–30% ETFs |
+| $5,000–$9,999 | ×0.75 | ×0.95 | 19–26 cos, 13–22% ETFs | 14–19 cos, 19–33% ETFs |
+| $1,000–$4,999 | ×0.5 | ×0.88 | 13–18 cos, 19–28% ETFs | 9–13 cos, 25–38% ETFs |
+| under $1,000 | ×0.3 | ×0.8 | 8–11 cos, 26–34% ETFs | 5–8 cos, 32–50% ETFs |
+
+  Then the **~$50 rule**: each company's whole-number % must be at least ceil($50 ÷ amount × 100) (10% at $500, 5% at $1,000, 2% at $3,000, 1% at $5,000+). The company count is capped at what the company share can afford at that floor; if the caps can't hold the company share, the rest moves to ETFs. If even one company at the risk level's cap would be under $50 (Extra low < $1,000, Low < $834, Medium-low < $715, High-medium < $625, High < $500, Extra high < $417), the plan is all ETFs with a plain note (an intended exception to the Session 9 "no ETF-only plans" rule). Each ETF is ≥ ~$25: ETF weights are scaled from the variant's list and slices under the floor are folded into the largest ETF. Plans show the note "With $X, fewer single companies keeps each position meaningful; more is in ETFs" plus the full-size comparison, and a fractional-shares note whenever any position is under $1,000 (no live prices, so it can't name share prices).
+- **Time period:** illustrative growth table (bad stretch / middle / good) for Plan A and Plan B, using the starting amount plus monthly additions, compounded monthly. Hypothetical assumptions per risk (stated on the page as made-up rates, not predictions):
+
+| Risk | Bad stretch | Middle | Good |
+|------|-------------|--------|------|
+| Extra low | first year −5%, then 1%/yr | 3.5%/yr | 5%/yr |
+| Low | first year −10%, then 2%/yr | 4.5%/yr | 6.5%/yr |
+| Medium-low | first year −18%, then 2.5%/yr | 5.5%/yr | 8%/yr |
+| High-medium | first year −25%, then 3%/yr | 6.5%/yr | 9.5%/yr |
+| High | first year −35%, then 3%/yr | 7.5%/yr | 11.5%/yr |
+| Extra high | first year −50%, then 3%/yr | 8%/yr | 14%/yr |
+
+  One real historical figure is cited, with a link, from an allowed source fetched 2026-10-08: Damodaran's *Historical Returns on Stocks, Bonds and Bills* (NYU Stern, data through 2024, page dated January 2026) — S&P 500 with dividends −36.55% in 2008 and −18.04% in 2022. No other historical statistics are used.
+- **Short-period warning:** High / Extra high with < 5 years; Medium-low / High-medium with < 3 years. Shown on the Time step, above Plan A, and in Plan B (for the stretch risk).
+- **Universe + research:** 59 new companies (§7), each with a full research card built the Session 9 way: CIK from a fresh SEC `company_tickers.json` (descriptive User-Agent), latest 10-K from `data.sec.gov` submissions, Item 1 / Item 1A extracted (manual line ranges for ICE, Citigroup, Cheniere, Devon), every business line and risk keyword-checked (0 failures; four business keywords matched elsewhere in the 10-K rather than Item 1), no numbers in prose. Wells Fargo was swapped for PNC because its 10-K puts the risk factors in an exhibit. IR links fetched 2026-10-08; 14 could not be verified (bot protection) and are omitted: ADI, AMAT, PANW, DDOG, ZTS, CME, UPST, TRGP, NRG, MDLZ, ROST, AZO, RSG, NOC (34 omitted across all 175).
+- **Unchanged:** locked disclaimer (verbatim), the 12 locked managers + color mapping, allowed / banned sources, no live prices (watchlist still one delayed EOD snapshot; new tickers show as unpriced), educational-not-advice framing, phone layout rules (≥16px inputs, ≥44px taps, safe-area).
+
+*Spec updated for Session 10.*
 
 *Spec updated for Session 9. Session 8 writeup, Session 7 research cards (now deeper), Session 6 watchlist, locked disclaimer and Sessions 1–5 product rules unchanged except the §7 holdings ladder.*
 

@@ -23,10 +23,10 @@
       <p class="brand">Your plan · Session 4</p>
       <h1>Educational long-term plan</h1>
       <span class="badge-edu">Educational · Not personalized advice · No live prices</span>
-      <div class="progress" role="progressbar" aria-valuemin="1" aria-valuemax="6" aria-valuenow="6" aria-label="Quiz progress: Plan">
-        <span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span>
+      <div class="progress" role="progressbar" aria-valuemin="1" aria-valuemax="8" aria-valuenow="8" aria-label="Quiz progress: Plan">
+        <span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span>
       </div>
-      <p class="progress-caption">Welcome · Risk · Return · Sectors · Review → <strong>Plan</strong></p>
+      <p class="progress-caption">Welcome · Risk · Return · Money · Time · Sectors · Review → <strong>Plan</strong></p>
     </header>
 
     <main class="main">
@@ -57,6 +57,8 @@
   <script>
     if (!IG.requireAnswers(["disclaimerAck", "risk", "return", "sectors"])) {
       location.replace("index.html");
+    } else if (!IG.requireAnswers(["amount", "years"])) {
+      location.replace("money.html");
     } else {
       IG.fillAnswersSummary(document.getElementById("answers-summary"));
       var plan = IGPlan.generate(IG.getAnswers());

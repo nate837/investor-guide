@@ -1,6 +1,7 @@
 /**
- * Shared Plan / Reject screen renderer (Session 3 table; Session 9 tier mix + notes).
- * Holdings table: Ticker | Name | Type | Sleeve | % | Why | Source type
+ * Shared Plan / Reject screen renderer (Session 3 table; Session 9 tier mix + notes;
+ * Session 10 dollar column, amount notes, time-period warning, illustrative growth range).
+ * Holdings table: Ticker | Name | Type | Sleeve | % | $ | Why | Source type
  */
 (function () {
   function esc(s) {
@@ -11,14 +12,20 @@
       .replace(/"/g, "&quot;");
   }
 
-  function holdingsTable(holdings) {
+  function money(n) {
+    var neg = n < 0;
+    var t = "$" + Math.abs(Math.round(n)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return neg ? "−" + t : t;
+  }
+
+  function holdingsTable(holdings, amount) {
     if (!holdings || !holdings.length) {
       return '<p class="note">No holdings generated.</p>';
     }
     var html =
       '<div class="holdings-wrap"><table class="holdings-table">' +
       "<thead><tr>" +
-      "<th>Ticker</th><th>Name</th><th>Type</th><th>Sleeve</th><th>%</th><th>Why</th><th>Source type</th>" +
+      "<th>Ticker</th><th>Name</th><th>Type</th><th>Sleeve</th><th>%</th><th>$</th><th>Why</th><th>Source type</th>" +
       "</tr></thead><tbody>";
     var sum = 0;
     holdings.forEach(function (h) {
@@ -40,6 +47,9 @@
         '<td class="pct">' +
         esc(h.pct) +
         "%</td>" +
+        '<td class="usd">' +
+        esc(money(h.dollars)) +
+        "</td>" +
         "<td>" +
         esc(h.why) +
         "</td>" +
@@ -51,7 +61,9 @@
     html +=
       '</tbody><tfoot><tr><td colspan="4"><strong>Total</strong></td><td class="pct"><strong>' +
       esc(sum) +
-      "%</strong></td><td colspan=\"2\"></td></tr></tfoot></table></div>";
+      '%</strong></td><td class="usd"><strong>' +
+      esc(money(amount)) +
+      "</strong></td><td colspan=\"2\"></td></tr></tfoot></table></div>";
     return html;
   }
 
@@ -72,7 +84,9 @@
       esc(meta.rules.coMax) +
       ", max " +
       esc(meta.rules.coMaxPct) +
-      "% each). No live prices.</p>"
+      "% each" +
+      (meta.rules.bandLabel ? "; ladder for " + esc(meta.rules.bandLabel) : "") +
+      "). Dollar amounts are rounded. No live prices.</p>"
     );
   }
 
@@ -88,6 +102,40 @@
         .join("") +
       "</ul>"
     );
+  }
+
+  function fractionalHtml(scale) {
+    if (!scale || !scale.fractionalNote) return "";
+    return '<p class="note fractional-note"><strong>Fractional shares:</strong> ' + esc(scale.fractionalNote) + "</p>";
+  }
+
+  function warningHtml(text) {
+    if (!text) return "";
+    return '<div class="horizon-warning" role="note"><strong>Short time period.</strong> ' + esc(text) + "</div>";
+  }
+
+  /* Session 10: illustrative growth range (bad / middle / good) — labeled assumptions, not predictions */
+  function projectionHtml(proj, risk, monthly) {
+    if (!proj) return "";
+    var a = proj.assumptions;
+    var html = '<div class="proj">';
+    html += '<h3 class="proj-h">Illustrative range over ' + esc(proj.years) + " year" + (proj.years === 1 ? "" : "s") + "</h3>";
+    html += '<p class="note">You put in <strong>' + esc(money(proj.contributed)) + "</strong> in total" + (monthly ? " (start plus " + esc(money(monthly)) + " a month)" : "") + ".</p>";
+    html += '<div class="proj-wrap"><table class="proj-table"><thead><tr><th>Case (assumed rate)</th><th>Value at end</th><th>Gain / loss</th></tr></thead><tbody>';
+    proj.rows.forEach(function (r) {
+      html +=
+        '<tr class="proj-' + esc(r.key) + '"><td><strong>' + esc(r.label) + '</strong><span class="proj-assume">' + esc(r.assumption) + '</span></td><td class="num">' + esc(money(r.end)) +
+        '</td><td class="num ' + (r.change < 0 ? "neg" : "pos") + '">' + (r.change >= 0 ? "+" : "") + esc(money(r.change)) + "</td></tr>";
+    });
+    html += "</tbody></table></div>";
+    html +=
+      '<p class="note"><strong>Assumptions for ' + esc(risk) + " risk (hypothetical):</strong> bad stretch = the first year falls " + esc(-a.badDrop) + "%, then grows " + esc(a.badAfter) +
+      "% a year; middle = " + esc(a.mid) + "% a year; good = " + esc(a.good) + "% a year. Money added monthly; growth compounded monthly. " + esc(proj.label) + "</p>";
+    if (proj.history) {
+      html += '<p class="note">' + esc(proj.history.text) + ' Source: <a href="' + esc(proj.history.url) + '" target="_blank" rel="noopener">' + esc(proj.history.source) + "</a>.</p>";
+    }
+    html += "</div>";
+    return html;
   }
 
   function tierMix(holdings) {
@@ -184,11 +232,16 @@
       "</section>";
 
     html +=
-      '<p class="note horizon-note"><strong>Horizon:</strong> ' +
+      '<p class="note horizon-note"><strong>Starting amount:</strong> ' +
+      esc(money(plan.amount)) +
+      (plan.monthly ? " + " + esc(money(plan.monthly)) + " a month" : "") +
+      " · <strong>Time period:</strong> " +
       esc(plan.horizon) +
       " · " +
       esc(plan.educationalLabel) +
       "</p>";
+
+    html += warningHtml(plan.planA.horizonWarning);
 
     if (plan.conflict) {
       html +=
@@ -201,28 +254,33 @@
       '<section class="card plan-card-a"><p class="plan-label">' +
       esc(plan.planA.title) +
       " · consistent plan</p><h2>Holdings</h2>" +
-      holdingsTable(plan.planA.holdings) +
+      holdingsTable(plan.planA.holdings, plan.amount) +
       metaNote(plan.planA.meta) +
       tierMix(plan.planA.holdings) +
       notesHtml(plan.planA.notes) +
+      fractionalHtml(plan.planA.scale) +
       '<p class="note"><strong>Why (plain English):</strong> ' +
       esc(plan.planA.why) +
       "</p>" +
       rangesHtml(plan.planA.ranges) +
+      projectionHtml(plan.planA.projection, plan.risk, plan.monthly) +
       '<p class="note">Ranges are educational framing — not forecasts or guarantees. No live quotes shown.</p></section>';
 
     html +=
       '<section class="card plan-card-b"><p class="plan-label">' +
       esc(plan.planB.title) +
       " · stretch</p><h2>Stretch holdings</h2>" +
-      holdingsTable(plan.planB.holdings) +
+      holdingsTable(plan.planB.holdings, plan.amount) +
       metaNote(plan.planB.meta) +
       tierMix(plan.planB.holdings) +
       notesHtml(plan.planB.notes) +
+      fractionalHtml(plan.planB.scale) +
       '<p class="note"><strong>Why:</strong> ' +
       esc(plan.planB.why) +
       "</p>" +
       rangesHtml(plan.planB.ranges) +
+      warningHtml(plan.planB.horizonWarning) +
+      projectionHtml(plan.planB.projection, plan.planB.stretchRisk, plan.monthly) +
       "</section>";
 
     html += researchHtml(plan.research);
@@ -234,5 +292,6 @@
     renderPlanInto: renderPlanInto,
     researchHtml: researchHtml,
     holdingsTable: holdingsTable,
+    projectionHtml: projectionHtml,
   };
 })();

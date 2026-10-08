@@ -20,13 +20,13 @@
 <body>
   <div class="app">
     <header class="topbar">
-      <p class="brand">Step 4 · Review</p>
+      <p class="brand">Step 6 · Review</p>
       <h1>Confirm your answers</h1>
       <span class="badge-edu">Educational · Not personalized advice</span>
-      <div class="progress" role="progressbar" aria-valuemin="1" aria-valuemax="6" aria-valuenow="5" aria-label="Quiz progress: Review">
-        <span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span></span>
+      <div class="progress" role="progressbar" aria-valuemin="1" aria-valuemax="8" aria-valuenow="7" aria-label="Quiz progress: Review">
+        <span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span></span>
       </div>
-      <p class="progress-caption">Welcome · Risk · Return · Sectors → <strong>Review</strong> · Plan</p>
+      <p class="progress-caption">Welcome · Risk · Return · Money · Time · Sectors → <strong>Review</strong> · Plan</p>
     </header>
 
     <main class="main">
@@ -36,7 +36,9 @@
           <div><dt>Risk</dt><dd id="r-risk">—</dd></div>
           <div><dt>Return target</dt><dd id="r-return">—</dd></div>
           <div><dt>Sectors</dt><dd id="r-sectors">—</dd></div>
-          <div><dt>Horizon</dt><dd>7–15+ years (long-term)</dd></div>
+          <div><dt>Starting amount</dt><dd id="r-amount">—</dd></div>
+          <div><dt>Monthly addition</dt><dd id="r-monthly">—</dd></div>
+          <div><dt>Time period</dt><dd id="r-years">—</dd></div>
         </dl>
         <p class="note">
           The plan will prioritize the <strong>best mix for your risk level</strong>.
@@ -49,6 +51,8 @@
         <a class="btn btn-secondary" href="sectors.html">Back</a>
         <a class="btn btn-ghost" href="risk.html">Change risk</a>
         <a class="btn btn-ghost" href="return.html">Change return</a>
+        <a class="btn btn-ghost" href="money.html">Change amount</a>
+        <a class="btn btn-ghost" href="time.html">Change time period</a>
       </div>
     </main>
 
@@ -64,11 +68,16 @@
   <script>
     if (!IG.requireAnswers(["disclaimerAck", "risk", "return", "sectors"])) {
       location.replace("index.html");
+    } else if (!IG.requireAnswers(["amount", "years"])) {
+      location.replace("money.html");
     } else {
       var d = IG.getAnswers();
       document.getElementById("r-risk").textContent = d.risk;
       document.getElementById("r-return").textContent = d.return;
       document.getElementById("r-sectors").textContent = IG.formatSectors(d.sectors);
+      document.getElementById("r-amount").textContent = IG.formatMoney(d.amount);
+      document.getElementById("r-monthly").textContent = d.monthly ? IG.formatMoney(d.monthly) + " a month" : "None";
+      document.getElementById("r-years").textContent = IG.formatYears(d.years);
       /* Reset to first mix when building fresh from review */
       document.getElementById("btn-build").addEventListener("click", function () {
         IG.save({ planVariant: 0 });

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="description" content="Educational Investor Guide: a phone-friendly quiz that builds a sample long-term plan of real ETFs and companies, with research cards built from SEC filings. College-application project. Not financial advice." />
+  <meta name="theme-color" content="#1b6b4a" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Investor Guide — educational project" />
+  <meta property="og:description" content="Risk-first quiz → sample plan of real ETFs and companies, with research cards from SEC filings. Educational only, not financial advice." />
+  <meta property="og:image" content="icon-512.png" />
+  <meta name="twitter:card" content="summary" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="favicon.ico" sizes="32x32" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+  <link rel="manifest" href="site.webmanifest" />
+  <title>Investor Guide — Time period</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <p class="brand">Step 4 · Time</p>
+      <h1>How many years will you stay invested?</h1>
+      <span class="badge-edu">Educational · Not a forecast</span>
+      <div class="progress" role="progressbar" aria-valuemin="1" aria-valuemax="8" aria-valuenow="5" aria-label="Quiz progress: Time">
+        <span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span></span><span></span><span></span>
+      </div>
+      <p class="progress-caption">Welcome · Risk · Return · Money → <strong>Time</strong> · Sectors · Review · Plan</p>
+    </header>
+
+    <main class="main">
+      <p class="lede" style="margin-top:0">
+        The plan shows an <strong>illustrative</strong> range (bad / middle / good) for this many years.
+        Higher risk needs more time to ride out bad stretches.
+      </p>
+
+      <div class="option-grid" role="group" aria-label="Time period presets">
+        <button type="button" class="option" data-value="1">1 year</button>
+        <button type="button" class="option" data-value="3">3 years</button>
+        <button type="button" class="option" data-value="5">5 years</button>
+        <button type="button" class="option" data-value="10">10 years</button>
+        <button type="button" class="option" data-value="15">15 years</button>
+        <button type="button" class="option" data-value="20">20+ years</button>
+      </div>
+
+      <section class="card slider-card">
+        <label class="num-label" for="years-slider">Or slide: <strong id="years-label">—</strong></label>
+        <input id="years-slider" class="range-input" type="range" min="1" max="40" step="1" value="10" />
+        <div class="range-ends" aria-hidden="true"><span>1 year</span><span>40 years</span></div>
+      </section>
+
+      <div class="horizon-warning" id="years-warning" role="status" hidden></div>
+
+      <div class="actions sticky-actions">
+        <a id="btn-continue" class="btn btn-primary is-disabled" href="sectors.html">Continue</a>
+        <a class="btn btn-secondary" href="money.html">Back</a>
+      </div>
+    </main>
+
+    <footer class="footer-nav">
+      <a href="index.html">Home</a>
+      <a href="disclaimer.html">Disclaimer</a>
+      <a href="sources.html">Sources</a>
+      <a href="watchlist.html">Watchlist</a>
+      <a href="research.html">Research</a>
+    </footer>
+  </div>
+  <script src="js/app.js"></script>
+  <script src="js/generator.js"></script>
+  <script>
+    if (!IG.requireAnswers(["disclaimerAck", "risk", "return", "amount"])) location.replace("money.html");
+    IG.bindNumberChoice({
+      key: "years", selector: ".option-grid .option", sliderId: "years-slider", min: 1, max: 50, continueId: "btn-continue", required: true,
+      onChange: function (v, ok) {
+        document.getElementById("years-label").textContent = ok ? IG.formatYears(v) : "pick a time period";
+        var w = ok ? IGPlan.horizonWarning(IG.getAnswers().risk, v) : null;
+        var box = document.getElementById("years-warning");
+        box.hidden = !w;
+        box.textContent = w ? "Heads up: " + w : "";
+      },
+    });
+  </script>
+</body>
+</html>

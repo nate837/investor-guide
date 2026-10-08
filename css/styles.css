@@ -733,7 +733,7 @@ body {
 
 .holdings-table {
   width: 100%;
-  min-width: 560px;
+  min-width: 620px;
   border-collapse: separate;
   border-spacing: 0;
   font-size: 0.8rem;
@@ -1127,4 +1127,210 @@ body {
 @media (max-width: 400px) {
   .footer-nav { gap: 2px; padding-left: max(4px, var(--safe-left)); padding-right: max(4px, var(--safe-right)); }
   .footer-nav a { padding: 8px 2px; font-size: 0.74rem; }
+}
+
+/* ===== Session 10 — starting amount, time period, dollars, growth range ===== */
+.option-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin: 0 0 4px;
+}
+
+.option-grid .option {
+  text-align: center;
+}
+
+.option-grid .option.selected {
+  padding-right: 34px;
+}
+
+.option-grid .option.selected::after {
+  right: 8px;
+  width: 20px;
+  height: 20px;
+}
+
+.option-grid .option-wide {
+  grid-column: 1 / -1;
+}
+
+.optional {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--muted);
+}
+
+.num-label {
+  display: block;
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 14px 0 6px;
+}
+
+.num-wrap {
+  position: relative;
+}
+
+.num-prefix {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.05rem;
+  font-weight: 650;
+  color: var(--muted);
+  pointer-events: none;
+}
+
+.num-input {
+  width: 100%;
+  min-height: var(--tap);
+  font: inherit;
+  font-size: 1.05rem; /* >= 16px so iOS does not zoom */
+  font-weight: 650;
+  color: var(--ink);
+  background: var(--surface);
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  padding: 10px 14px 10px 30px;
+  font-variant-numeric: tabular-nums;
+}
+
+.num-input:focus-visible {
+  border-color: var(--accent);
+  outline: 3px solid var(--accent-ring);
+  outline-offset: 1px;
+}
+
+.field-error {
+  color: #a33 !important;
+  font-weight: 600;
+}
+
+.amount-preview {
+  color: var(--ink);
+  font-size: 1rem;
+}
+
+.slider-card {
+  margin-top: 14px;
+}
+
+.slider-card .num-label {
+  margin-top: 0;
+}
+
+.range-input {
+  width: 100%;
+  min-height: var(--tap);
+  accent-color: var(--accent);
+  margin: 4px 0 0;
+}
+
+.range-ends {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.horizon-warning {
+  background: var(--warn-bg);
+  border: 1px solid var(--warn-border);
+  border-radius: var(--radius);
+  padding: 12px 14px;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--ink);
+  margin: 12px 0 14px;
+}
+
+.holdings-table th:nth-child(6),
+.holdings-table td.usd {
+  white-space: nowrap;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  font-size: 0.85rem;
+  color: var(--ink);
+}
+
+.holdings-table th:nth-child(6) {
+  color: var(--muted);
+}
+
+.fractional-note {
+  background: var(--bg);
+  border-radius: 8px;
+  padding: 10px 12px;
+}
+
+.proj {
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+}
+
+.proj-h {
+  margin: 0 0 6px;
+  font-size: 1.05rem;
+}
+
+.proj-wrap {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  margin: 10px 0 6px;
+}
+
+.proj-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+.proj-table th,
+.proj-table td {
+  padding: 10px 8px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+
+.proj-table th {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--muted);
+  background: var(--bg);
+}
+
+.proj-table td.num {
+  text-align: right;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+  font-weight: 650;
+}
+
+.proj-table td.neg {
+  color: #a33;
+}
+
+.proj-table td.pos {
+  color: var(--accent);
+}
+
+.proj-table tr:last-child td {
+  border-bottom: none;
+}
+
+.proj-assume {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-top: 2px;
 }

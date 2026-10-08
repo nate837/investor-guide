@@ -20,13 +20,13 @@
 <body>
   <div class="app">
     <header class="topbar">
-      <p class="brand">Step 3 · Sectors</p>
+      <p class="brand">Step 5 · Sectors</p>
       <h1>Any preferred sectors?</h1>
       <span class="badge-edu">Educational · Diversify first</span>
-      <div class="progress" role="progressbar" aria-valuemin="1" aria-valuemax="6" aria-valuenow="4" aria-label="Quiz progress: Sectors">
-        <span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span></span><span></span>
+      <div class="progress" role="progressbar" aria-valuemin="1" aria-valuemax="8" aria-valuenow="6" aria-label="Quiz progress: Sectors">
+        <span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span></span><span></span>
       </div>
-      <p class="progress-caption">Welcome · Risk · Return → <strong>Sectors</strong> · Review · Plan</p>
+      <p class="progress-caption">Welcome · Risk · Return · Money · Time → <strong>Sectors</strong> · Review · Plan</p>
     </header>
 
     <main class="main">
@@ -47,7 +47,7 @@
 
       <div class="actions sticky-actions">
         <a id="btn-continue" class="btn btn-primary is-disabled" href="review.html">Continue to review</a>
-        <a class="btn btn-secondary" href="return.html">Back</a>
+        <a class="btn btn-secondary" href="time.html">Back</a>
       </div>
     </main>
 
@@ -62,6 +62,7 @@
   <script src="js/app.js"></script>
   <script>
     if (!IG.requireAnswers(["disclaimerAck", "risk", "return"])) location.replace("index.html");
+    else if (!IG.requireAnswers(["amount", "years"])) location.replace("money.html");
     IG.bindOptions({ key: "sectors", multi: true });
   </script>
 </body>

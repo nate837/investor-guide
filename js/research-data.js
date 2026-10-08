@@ -1,11 +1,11 @@
 /**
- * Session 9 research-card data (deeper cards). Verified 2026-10-07.
+ * Session 9 research-card data (deeper cards), expanded in Session 10 (59 more companies). Verified 2026-10-07 / 2026-10-08.
  * See "method" below for how every field was sourced. No buy/sell calls. No invented numbers.
  */
 window.IG_RESEARCH_DATA = {
- "verifiedOn": "2026-10-07",
- "session": 9,
- "method": "CIKs from SEC company_tickers.json (fetched 2026-10-07 with a descriptive User-Agent). Latest 10-K for each company found via data.sec.gov submissions; the 10-K text was downloaded from EDGAR and Item 1 (Business) and Item 1A (Risk Factors) were extracted. Each plain-English business line and risk was written from those sections and keyword-checked against the extracted text. No numbers are quoted. IR links: fetched 2026-10-07 and confirmed HTTP 200 on the company's own domain; null = could not be verified (bot protection), so the card says to search the official IR site.",
+ "verifiedOn": "2026-10-07 (Session 9 companies) and 2026-10-08 (Session 10 additions)",
+ "session": 10,
+ "method": "CIKs from SEC company_tickers.json (fetched 2026-10-07 with a descriptive User-Agent). Latest 10-K for each company found via data.sec.gov submissions; the 10-K text was downloaded from EDGAR and Item 1 (Business) and Item 1A (Risk Factors) were extracted. Each plain-English business line and risk was written from those sections and keyword-checked against the extracted text. No numbers are quoted. IR links: fetched 2026-10-07 and confirmed HTTP 200 on the company's own domain; null = could not be verified (bot protection), so the card says to search the official IR site. Session 10 (2026-10-08): 59 more companies added the same way (fresh company_tickers.json, data.sec.gov submissions, latest 10-K, Item 1 / Item 1A extracted and keyword-checked; IR links fetched 2026-10-08, HTTP 200 on the company's own domain required). New entries carry addedSession: 10.",
  "companies": {
   "MSFT": {
    "name": "Microsoft",
@@ -2909,6 +2909,1599 @@ window.IG_RESEARCH_DATA = {
     "filerCik": "0001819994"
    },
    "checkFirst": "Launch vs. space systems revenue, backlog, and cash burn."
+  },
+  "QCOM": {
+   "name": "Qualcomm",
+   "cik": "0000804328",
+   "ir": "https://investor.qualcomm.com/",
+   "sector": "Technology",
+   "tier": "Steady",
+   "why": "Phone + auto chips, licensing",
+   "tierWhy": "Large, profitable chip designer with a big patent-licensing business and a dividend. Steady for a chip company, but still tied to smartphone cycles.",
+   "business": "Designs chips for smartphones, cars, PCs, and connected devices (QCT), and licenses its wireless patents to device makers (QTL).",
+   "risks": [
+    "A large share of revenue comes from a small number of customers, and some big customers are designing their own chips.",
+    "Depends heavily on China and on trade and export rules between the U.S. and China.",
+    "Its licensing business faces disputes and legal challenges from licensees and regulators.",
+    "Relies on outside foundries to manufacture its chips."
+   ],
+   "tenK": {
+    "form": "10-K",
+    "filed": "2025-11-05",
+    "period": "2025-09-28",
+    "accession": "0000804328-25-000085",
+    "url": "https://www.sec.gov/Archives/edgar/data/804328/000080432825000085/qcom-20250928.htm",
+    "filerCik": "0000804328"
+   },
+   "checkFirst": "QCT vs. QTL revenue and margins, revenue by customer concentration notes, and handset vs. automotive vs. IoT revenue.",
+   "addedSession": 10,
+   "verifiedOn": "2026-10-08"
+  },
+  "ADI": {
+   "name": "Analog Devices",
+   "cik": "0000006281",
+   "ir": null,
+   "sector": "Technology",
+   "tier": "Steady",
+   "why": "Analog + mixed-signal chips",
+   "tierWhy": "Long-established chip maker selling into industrial, auto, and communications markets, with a dividend history. Steadier than most chip names, but cyclical.",
+   "business": "Designs and makes analog, mixed-signal, and power chips used in industrial, automotive, communications, and consumer products.",
+   "risks": [
+    "Chip demand rises and falls in cycles, and customers sometimes cut orders to use up inventory.",
+    "Has significant sales in China and exposure to trade restrictions and tariffs.",
+    "Faces strong competition across many product lines.",
+    "Depends on its own factories and outside foundries, and disruptions could limit supply."
+   ],
+   "tenK": {
+    "form": "10-K",
+    "filed": "2025-11-25",
+    "period": "2025-11-01",
+    "accession": "0000006281-25-000153",
+    "url": "https://www.sec.gov/Archives/edgar/data/6281/000000628125000153/adi-20251101.htm",
+    "filerCik": "0000006281"
+   },
+   "checkFirst": "Revenue by end market (industrial, automotive, communications, consumer), gross margin, and inventory levels.",
+   "addedSession": 10,
+   "verifiedOn": "2026-10-08"
+  },
+  "INTU": {
+   "name": "Intuit",
+   "cik": "0000896878",
+   "ir": "https://investors.intuit.com/",
+   "sector": "Technology",
+   "tier": "Growth",
+   "why": "TurboTax, QuickBooks, Credit Karma",
+   "tierWhy": "Profitable software company with strong brands and recurring revenue, but priced for growth and exposed to tax-policy and AI changes. Growth tier.",
+   "business": "Sells TurboTax, QuickBooks, Credit Karma, and Mailchimp software for consumers and small businesses.",
+   "risks": [
+    "Faces intense competition, including from free and lower-priced tax and accounting products.",
+    "Government changes to tax filing, such as free government filing programs, could hurt TurboTax.",
+    "Holds sensitive customer financial data, so security breaches and fraud are serious risks.",
+    "Its push into AI products may not work as planned."
+   ],
+   "tenK": {
+    "form": "10-K",
+    "filed": "2026-09-09",
+    "period": "2026-07-31",
+    "accession": "0000896878-26-000037",
+    "url": "https://www.sec.gov/Archives/edgar/data/896878/000089687826000037/intu-20260731.htm",
+    "filerCik": "0000896878"
+   },
+   "checkFirst": "Revenue by segment (Global Business Solutions, Consumer, Credit Karma, ProTax) and growth in online ecosystem revenue.",
+   "addedSession": 10,
+   "verifiedOn": "2026-10-08"
+  },
+  "AMAT": {
+   "name": "Applied Materials",
+   "cik": "0000006951",
+   "ir": null,
+   "sector": "Technology",
+   "tier": "Growth",
+   "why": "Chipmaking equipment",
+   "tierWhy": "Leading maker of chip-manufacturing equipment. Profitable, but orders swing with chipmakers' spending plans. Growth tier.",
+   "business": "Makes equipment and services used to manufacture semiconductors and displays, sold to chipmakers worldwide.",
+   "risks": [
+    "Demand depends on chipmakers' spending, which is cyclical and can drop sharply.",
+    "U.S. export controls limit sales to China, an important market.",
+    "A small number of large customers make up much of revenue.",
+    "Must keep up with fast technology changes in chipmaking."
+   ],
+   "tenK": {
+    "form": "10-K",
+    "filed": "2025-12-12",
+    "period": "2025-10-26",
+    "accession": "0001628280-25-056742",
+    "url": "https://www.sec.gov/Archives/edgar/data/6951/000162828025056742/amat-20251026.htm",
+    "filerCik": "0000006951"
+   },
+   "checkFirst": "Semiconductor Systems vs. Applied Global Services revenue, revenue by geography (especially China), and R&D spending.",
+   "addedSession": 10,
+   "verifiedOn": "2026-10-08"
+  },
+  "LRCX": {
+   "name": "Lam Research",
+   "cik": "0000707549",
+   "ir": "https://investor.lamresearch.com/",
+   "sector": "Technology",
+   "tier": "Growth",
+   "why": "Chip etch + deposition tools",
+   "tierWhy": "Major chip-equipment maker riding memory and AI chip demand. Profitable but very cyclical. Growth tier.",
+   "business": "Makes wafer fabrication equipment (etch, deposition, clean) and services for semiconductor manufacturers.",
+   "risks": [
+    "Sales depend on cyclical spending by chipmakers, especially memory makers.",
+    "Export rules restrict what it can sell to China.",
+    "A handful of large customers account for a big share of revenue.",
+    "Relies on suppliers, some single-source, for key parts."
+   ],
+   "tenK": {
+    "form": "10-K",
+    "filed": "2026-08-07",
+    "period": "2026-06-28",
+    "accession": "0000707549-26-000037",
+    "url": "https://www.sec.gov/Archives/edgar/data/707549/000070754926000037/lrcx-20260628.htm",
+    "filerCik": "0000707549"
+   },
+   "checkFirst": "Revenue by region and by customer type (memory vs. foundry vs. logic), and gross margin trend.",
+   "addedSession": 10,
+   "verifiedOn": "2026-10-08"
+  },
+  "ANET": {
+   "name": "Arista Networks",
+   "cik": "0001596532",
+   "ir": "https://investors.arista.com/",
+   "sector": "Technology",
+   "tier": "Growth",
+   "why": "Cloud + AI data-center networking",
+   "tierWhy": "Fast-growing networking company selling to big cloud and AI builders. Profitable, but depends on a few huge customers. Growth tier.",
+   "business": "Sells high-speed networking switches and software (EOS) used in cloud, AI, and enterprise data centers.",
+   "risks": [
+    "A few very large cloud customers make up a big share of revenue.",
+    "Relies on contract manufacturers and limited suppliers for components.",
+    "Competes with much larger networking companies.",
+    "Customer spending on AI and cloud build-outs can be uneven."
+   ],
+   "tenK": {
+    "form": "10-K",
+    "filed": "2026-02-17",
+    "period": "2025-12-31",
+    "accession": "0001596532-26-000013",
+    "url": "https://www.sec.gov/Archives/edgar/data/1596532/000159653226000013/anet-20251231.htm",
+    "filerCik": "0001596532"
+   },
+   "checkFirst": "Customer concentration disclosures, product vs. services revenue, and purchase commitments and inventory.",
+   "addedSession": 10,
+   "verifiedOn": "2026-10-08"
+  },
+  "PANW": {
+   "name": "Palo Alto Networks",
+   "cik": "0001327567",
+   "ir": null,
+   "sector": "Technology",
+   "tier": "Growth",
+   "why": "Cybersecurity platform",
+   "tierWhy": "Large cybersecurity company growing through subscriptions and acquisitions. Valued for growth, so the stock can swing. Growth tier.",
+   "business": "Sells cybersecurity products for networks, cloud, and security operations, including firewalls and subscription services.",
+   "risks": [
+    "Faces intense competition in a fast-changing security market.",
+    "A breach of its own products or systems would badly hurt its reputation.",
+    "Its shift toward platform deals and acquisitions may not go as planned.",
+    "Depends on channel partners and distributors for many sales."
+   ],
+   "tenK": {
+    "form": "10-K",
+    "filed": "2026-09-10",
+    "period": "2026-07-31",
+    "accession": "0001327567-26-000023",
+    "url": "https://www.sec.gov/Archives/edgar/data/1327567/000132756726000023/panw-20260731.htm",
+    "filerCik": "0001327567"
+   },
+   "checkFirst": "Next-generation security annual recurring revenue, remaining performance obligations, and product vs. subscription revenue.",
+   "addedSession": 10,
+   "verifiedOn": "2026-10-08"
+  },
+  "DDOG": {
+   "name": "Datadog",
+   "cik": "0001561550",
+   "ir": null,
+   "sector": "Technology",
+   "tier": "Aggressive growth",
+   "why": "Cloud monitoring software",
+   "tierWhy": "Fast-growing cloud-software company that only recently became consistently profitable; usage-based revenue can swing. Aggressive growth.",
+   "business": "Sells a cloud monitoring and security platform that lets companies watch their apps, servers, logs, and AI workloads.",
+   "risks": [
+    "Revenue depends on customers' usage, which can drop when they cut cloud spending.",
+    "Faces strong competition, including from the big cloud providers.",
+    "A small number of very large customers matter a lot to growth.",
+    "Outages or security breaches could hurt trust in the platform."
+   ],
+   "tenK": {
+    "form": "10-K",
+    "filed": "2026-02-18",
+    "period": "2025-12-31",
+    "accession": "0001628280-26-008819",
+    "url": "https://www.sec.gov/Archives/edgar/data/1561550/000162828026008819/ddog-20251231.htm",
+    "filerCik": "0001561550"
+   },
+   "checkFirst": "Number of large customers, net revenue retention, and free cash flow vs. stock-based compensation.",
+   "addedSession": 10,
+   "verifiedOn": "2026-10-08"
+  },
+  "MRVL": {
+   "name": "Marvell Technology",
+   "cik": "0001835632",
+   "ir": "https://investor.marvell.com/",
+   "sector": "Technology",
+   "tier": "Aggressive growth",
+   "why": "Custom AI + data-center chips",
+   "tierWhy": "Chip designer betting heavily on custom AI chips for a few cloud giants. High growth potential with big swings. Aggressive growth.",
+   "business": "Designs data-infrastructure chips, including custom AI accelerators, electro-optics, networking, and storage chips.",
+   "risks": [
+    "A small number of customers account for a large share of revenue.",
+    "Depends on outside foundries, mainly in Asia, to make its chips.",
+    "Custom AI chip programs can be delayed, shrunk, or lost.",
+    "Has a history of losses."
+   ],
+   "tenK": {
+    "form": "10-K",
+    "filed": "2026-03-11",
+    "period": "2026-01-31",
+    "accession": "0001835632-26-000011",
+    "url": "https://www.sec.gov/Archives/edgar/data/1835632/000183563226000011/mrvl-20260131.htm",
+    "filerCik": "0001835632"
+   },
+   "checkFirst": "Data center revenue share, customer concentration notes, and GAAP vs. non-GAAP profit.",
+   "addedSession": 10,
+   "verifiedOn": "2026-10-08"
+  },
+  "APP": {
+   "name": "AppLovin",
+   "cik": "0001751008",
+   "ir": "https://investors.applovin.com/",
+   "sector": "Technology",
+   "tier": "Aggressive growth",
+   "why": "Mobile ad tech",
+   "tierWhy": "Very fast-growing ad-tech company whose results and stock have moved sharply. Aggressive growth.",
+   "business": "Runs an advertising platform (including AXON and AppDiscovery) that helps app makers and other advertisers find users.",
+   "risks": [
+    "Depends on mobile app stores and platforms whose rule changes could hurt its business.",
+    "Privacy laws and data rules could limit ad targeting.",
+    "Faces strong competition in mobile advertising.",
+    "Carries significant debt."
+   ],
+   "tenK": {
+    "form": "10-K",
+    "filed": "2026-02-19",
+    "period": "2025-12-31",
+    "accession": "0001751008-26-000010",
+    "url": "https://www.sec.gov/Archives/edgar/data/1751008/000175100826000010/app-20251231.htm",
+    "filerCik": "0001751008"
+   },
+   "checkFirst": "Advertising revenue growth, adjusted EBITDA vs. GAAP net income, and debt.",
+   "addedSession": 10,
+   "verifiedOn": "2026-10-08"
+  },
+  "BMY": {
+   "name": "Bristol-Myers Squibb",
+   "cik": "0000014272",
+   "ir": "https://www.bms.com/investors.html",
+   "sector": "Healthcare",
+   "tier": "Defensive",
+   "why": "Cancer, heart + immunology drugs",
+   "tierWhy": "Large, dividend-paying drugmaker selling medicines people need in any economy. Defensive, though patent expirations are a real risk.",
+   "business": "Discovers, develops, and sells prescription medicines for cancer, heart disease, immunology, and brain disorders, such as Eliquis and Opdivo.",
+   "risks": [
+    "Key drugs are losing patent protection, which lets cheaper generics and biosimilars compete.",
+    "Government drug-pricing rules, like Medicare price negotiation, could cut revenue.",
+    "New drugs may fail in clinical trials or not get approved.",
+    "Faces lawsuits over products and patents."
+   ],
+   "tenK": {
+    "form": "10-K",
+    "filed": "2026-02-11",
+    "period": "2025-12-31",
+    "accession": "0000014272-26-000004",
+    "url": "https://www.sec.gov/Archives/edgar/data/14272/000001427226000004/bmy-20251231.htm",
+    "filerCik": "0000014272"
+   },
+   "checkFirst": "Revenue split between its older drugs and its newer growth portfolio, and the timing of patent expirations.",
+   "addedSession": 10,
+   "verifiedOn": "2026-10-08"
+  },
+  "GILD": {
+   "name": "Gilead Sciences",
+   "cik": "0000882095",
+   "ir": "https://investors.gilead.com/",
+   "sector": "Healthcare",
+   "tier": "Steady",
+   "why": "HIV + liver disease medicines",
+   "tierWhy": "Profitable biotech with a large HIV franchise and a dividend. Steady, but depends on a few key drugs.",
+   "business": "Develops and sells medicines for HIV, liver diseases, cancer, and inflammation, such as Biktarvy.",
+   "risks": [
+    "Much of revenue comes from HIV drugs, so problems there would hurt a lot.",
+    "Drug-pricing pressure from governments and insurers could reduce sales.",
+    "Generic competition when patents expire.",
+    "Research and acquisitions may not lead to successful new drugs."
+   ],
+   "tenK": {
+    "form": "10-K",
+    "filed": "2026-02-24",
+    "period": "2025-12-31",
+    "accession": "0000882095-26-000006",
+    "url": "https://www.sec.gov/Archives/edgar/data/882095/000088209526000006/gild-20251231.htm",
+    "filerCik": "0000882095"
+   },
+   "checkFirst": "Revenue by product area (HIV, liver disease, oncology), and research and development spending.",
+   "addedSession": 10,
+   "verifiedOn": "2026-10-08"
+  },
+  "ZTS": {
+   "name": "Zoetis",
+   "cik": "0001555280",
+   "ir": null,
+   "sector": "Healthcare",
+   "tier": "Steady",
+   "why": "Animal health medicines",
+   "tierWhy": "Largest animal-health company, selling medicines and vaccines for pets and livestock. Steady demand, though some products face new competition.",
+   "business": "Makes medicines, vaccines, diagnostics, and other products for pets and farm animals.",
+   "risks": [
+    "Faces competition, including from generics and new rival treatments.",
+    "Safety or effectiveness problems with products could hurt sales.",
+    "Livestock demand depends on farm economics and animal disease outbreaks.",
+    "Changes in how pet owners spend on vet care affect demand."
+   ],
+   "tenK": {
+    "form": "10-K",
+    "filed": "2026-02-12",
+    "period": "2025-12-31",
+    "accession": "0001555280-26-000011",
+    "url": "https://www.sec.gov/Archives/edgar/data/1555280/000155528026000011/zts-20251231.htm",
+    "filerCik": "0001555280"
+   },
+   "checkFirst": "Companion animal vs. livestock revenue, and U.S. vs. international segment results.",
+   "addedSession": 10,
+   "verifiedOn": "2026-10-08"
+  },
+  "CI": {
+   "name": "The Cigna Group",
+   "cik": "0001739940",
+   "ir": "https://investors.thecignagroup.com/",
+   "sector": "Healthcare",
+   "tier": "Steady",
+   "why": "Health benefits + pharmacy services",
+   "tierWhy": "Big, profitable health-services company with steady demand. Steady, though exposed to government rules on pharmacy benefits.",
+   "business": "Runs Evernorth health services (including the Express Scripts pharmacy benefit manager) and Cigna Healthcare insurance plans.",
+   "risks": [
+    "Pharmacy benefit managers face new laws, regulation, and lawsuits.",
+    "Medical costs could rise faster than the prices it charges.",
+    "Depends on a few large clients and contracts.",
+    "Holds sensitive health data, so cyberattacks are a major risk."
+   ],
+   "tenK": {
+    "form": "10-K",
+    "filed": "2026-02-26",
+    "period": "2025-12-31",
+    "accession": "0001739940-26-000006",
+    "url": "https://www.sec.gov/Archives/edgar/data/1739940/000173994026000006/ci-20251231.htm",
+    "filerCik": "0001739940"
+   },
+   "checkFirst": "Evernorth vs. Cigna Healthcare segment earnings, medical care ratio, and debt.",
+   "addedSession": 10,
+   "verifiedOn": "2026-10-08"
+  },
+  "EW": {
+   "name": "Edwards Lifesciences",
+   "cik": "0001099800",
+   "ir": "https://ir.edwards.com/",
+   "sector": "Healthcare",
+   "tier": "Growth",
+   "why": "Heart valve devices",
+   "tierWhy": "Leader in heart-valve devices with strong growth, valued as a growth company. Growth tier.",
+   "business": "Makes devices to treat structural heart disease, including transcatheter heart valves (TAVR) and surgical valves.",
+   "risks": [
+    "Depends heavily on its transcatheter heart valve products.",
+    "Faces competition from other device makers.",
+    "Clinical trial results and regulatory approvals may not go its way.",
+    "Product recalls or safety problems could hurt sales."
+   ],
+   "tenK": {
+    "form": "10-K",
+    "filed": "2026-02-25",
+    "period": "2025-12-31",
+    "accession": "0001099800-26-000009",
+    "url": "https://www.sec.gov/Archives/edgar/data/1099800/000109980026000009/ew-20251231.htm",
+    "filerCik": "0001099800"
+   },
+   "checkFirst": "TAVR vs. other product-group sales, and research and development spending.",
+   "addedSession": 10,
+   "verifiedOn": "2026-10-08"
+  },
+  "IDXX": {
+   "name": "IDEXX Laboratories",
+   "cik": "0000874716",
+   "ir": "https://ir.idexx.com/",
+   "sector": "Healthcare",
+   "tier": "Growth",
+   "why": "Pet diagnostics",
+   "tierWhy": "Leader in veterinary diagnostics with recurring test revenue and high margins; priced as a growth company. Growth tier.",
+   "business": "Makes diagnostic tests, analyzers, and software for veterinarians, plus water and livestock testing.",
+   "risks": [
+    "Depends on pet owners visiting vets, which can slow down.",
+    "Faces competition in veterinary diagnostics.",
+    "Relies on some sole-source suppliers for parts and materials.",
+    "International sales expose it to currency changes."
+   ],
+   "tenK": {
+    "form": "10-K",
+    "filed": "2026-02-20",
+    "period": "2025-12-31",
+    "accession": "0000874716-26-000038",
+    "url": "https://www.sec.gov/Archives/edgar/data/874716/000087471626000038/idxx-20251231.htm",
+    "filerCik": "0000874716"
+   },
+   "checkFirst": "Companion Animal Group recurring revenue, instrument placements, and operating margin.",
+   "addedSession": 10,
+   "verifiedOn": "2026-10-08"
+  },
+  "PODD": {
+   "name": "Insulet",
+   "cik": "0001145197",
+   "ir": "https://investors.insulet.com/",
+   "sector": "Healthcare",
+   "tier": "Aggressive growth",
+   "why": "Tubeless insulin pumps",
+   "tierWhy": "Fast-growing medical-device company built mostly around one product line. Aggressive growth.",
+   "business": "Makes the Omnipod tubeless, wearable insulin pump for people with diabetes.",
+   "risks": [
+    "Depends almost entirely on the Omnipod product line.",
+    "Faces strong competition from other insulin pumps and new diabetes treatments.",
+    "Depends on insurance and pharmacy coverage for the product.",
+    "Manufacturing problems or recalls could disrupt supply."
+   ],
+   "tenK": {
+    "form": "10-K",
+    "filed": "2026-02-18",
+    "period": "2025-12-31",
+    "accession": "0001145197-26-000028",
+    "url": "https://www.sec.gov/Archives/edgar/data/1145197/000114519726000028/podd-20251231.htm",
+    "filerCik": "0001145197"
+   },
+   "checkFirst": "U.S. vs. international Omnipod revenue, gross margin, and new-customer growth commentary.",
+   "addedSession": 10,
+   "verifiedOn": "2026-10-08"
+  },
+  "NTRA": {
+   "name": "Natera",
+   "cik": "0001604821",
+   "ir": "https://investor.natera.com/",
+   "sector": "Healthcare",
+   "tier": "Aggressive growth",
+   "why": "Genetic + cancer testing",
+   "tierWhy": "Fast-growing genetic-testing company that has a history of losses. Aggressive growth.",
+   "business": "Provides cell-free DNA tests for women's health, organ transplant monitoring, and cancer (such as Signatera).",
+   "risks": [
+    "Has a history of losses and may not stay profitable.",
+    "Depends on getting paid by insurers and government programs for its tests.",
+    "Faces patent lawsuits and other legal disputes.",
+    "Faces competition and changing regulation of lab tests."
+   ],
+   "tenK": {
+    "form": "10-K",
+    "filed": "2026-02-27",
+    "period": "2025-12-31",
+    "accession": "0001104659-26-020881",
+    "url": "https://www.sec.gov/Archives/edgar/data/1604821/000110465926020881/ntra-20251231x10k.htm",
+    "filerCik": "0001604821"
+   },
+   "checkFirst": "Tests processed, average revenue per test, and cash burn or free cash flow.",
+   "addedSession": 10,
+   "verifiedOn": "2026-10-08"
+  },
+  "INSM": {
+   "name": "Insmed",
+   "cik": "0001104506",
+   "ir": "https://investor.insmed.com/",
+   "sector": "Healthcare",
+   "tier": "Aggressive growth",
+   "why": "Rare lung disease medicines",
+   "tierWhy": "Biotech whose value depends on a small number of medicines and trials; has a history of losses. Aggressive growth.",
+   "business": "Develops and sells medicines for serious lung diseases, including Arikayce and the newer drug Brinsupri.",
+   "risks": [
+    "Depends on a small number of products for revenue.",
+    "Has a history of losses and may need more money.",
+    "Clinical trials may fail or be delayed.",
+    "Insurance coverage and pricing pressure could limit sales."
+   ],
+   "tenK": {
+    "form": "10-K",
+    "filed": "2026-02-19",
+    "period": "2025-12-31",
+    "accession": "0001104506-26-000009",
+    "url": "https://www.sec.gov/Archives/edgar/data/1104506/000110450626000009/insm-20251231.htm",
+    "filerCik": "0001104506"
+   },
+   "checkFirst": "Product revenue by drug, research spending, and cash on hand vs. losses.",
+   "addedSession": 10,
+   "verifiedOn": "2026-10-08"
+  },
+  "HIMS": {
+   "name": "Hims & Hers Health",
+   "cik": "0001773751",
+   "ir": "https://investors.hims.com/",
+   "sector": "Healthcare",
+   "tier": "Aggressive growth",
+   "why": "Online health + wellness",
+   "tierWhy": "Fast-growing telehealth company exposed to regulation and changes in its compounded-drug offerings. Aggressive growth.",
+   "business": "Runs an online platform connecting customers with licensed doctors for prescriptions and wellness products, including weight-loss treatments.",
+   "risks": [
+    "Health-care laws and regulators could restrict how it operates.",
+    "Compounded drugs it sells face legal and regulatory uncertainty.",
+    "Depends on marketing to attract and keep subscribers.",
+    "Relies on outside doctors' groups and pharmacies."
+   ],
+   "tenK": {
+    "form": "10-K",
+    "filed": "2026-02-23",
+    "period": "2025-12-31",
+    "accession": "0001773751-26-000022",
+    "url": "https://www.sec.gov/Archives/edgar/data/1773751/000177375126000022/hims-20251231.htm",
+    "filerCik": "0001773751"
+   },
+   "checkFirst": "Subscriber count, revenue per subscriber, and marketing spending as a share of revenue.",
+   "addedSession": 10,
+   "verifiedOn": "2026-10-08"
+  },
+  "TRV": {
+   "name": "Travelers",
+   "cik": "0000086312",
+   "ir": "https://investor.travelers.com/",
+   "sector": "Financials",
+   "tier": "Defensive",
+   "why": "Property & casualty insurer",
+   "tierWhy": "Large, long-running insurer selling policies people and businesses need in any economy. Defensive, though big storms hit results.",
+   "business": "Sells property and casualty insurance to businesses, governments, and individuals, including auto and home policies.",
+   "risks": [
+    "Catastrophes like hurricanes, wildfires, and severe storms can cause big losses.",
+    "Claims could end up costing more than it set aside.",
+    "Its investment portfolio can lose value when interest rates or markets move.",
+    "Insurance is heavily regulated."
+   ],
+   "tenK": {
+    "form": "10-K",
+    "filed": "2026-02-12",
+    "period": "2025-12-31",
+    "accession": "0000086312-26-000065",
+    "url": "https://www.sec.gov/Archives/edgar/data/86312/000008631226000065/trv-20251231.htm",
+    "filerCik": "0000086312"
+   },
+   "checkFirst": "Combined ratio by segment, catastrophe losses, and prior-year reserve development.",
+   "addedSession": 10,
+   "verifiedOn": "2026-10-08"
+  },
+  "AON": {
+   "name": "Aon",
+   "cik": "0000315293",
+   "ir": "https://ir.aon.com/",
+   "sector": "Financials",
+   "tier": "Defensive",
+   "why": "Insurance broker + consulting",
+   "tierWhy": "Global broker earning fees and commissions rather than taking insurance risk itself. Defensive, steady demand.",
+   "business": "Global professional-services firm offering risk, retirement, health, and wealth advice and insurance and reinsurance brokerage.",
+   "risks": [
+    "Results depend on insurance prices and the economy, which affect commissions and fees.",
+    "Faces error-and-omission claims from clients, which can rise in downturns.",
+    "Large acquisitions and integration bring risk.",
+    "Operates in many countries with differing laws and currencies."
+   ],
+   "tenK": {
+    "form": "10-K",
+    "filed": "2026-02-13",
+    "period": "2025-12-31",
+    "accession": "0001628280-26-008116",
+    "url": "https://www.sec.gov/Archives/edgar/data/315293/000162828026008116/aon-20251231.htm",
+    "filerCik": "0000315293"
+   },
+   "checkFirst": "Organic revenue growth by solution line, operating margin, and debt from acquisitions.",
+   "addedSession": 10,
+   "verifiedOn": "2026-10-08"
+  },
+  "PNC": {
+   "name": "PNC Financial Services",
+   "cik": "0000713676",
+   "ir": "https://investor.pnc.com/",
+   "sector": "Financials",
+   "tier": "Steady",
+   "why": "Large regional U.S. bank",
+   "tierWhy": "Large, established U.S. bank with a dividend history. Steady, but banks are tied to the economy and interest rates.",
+   "business": "Bank holding company offering retail and business banking, corporate and institutional banking, and asset management in the U.S.",
+   "risks": [
+    "Loan losses rise when borrowers struggle in a weak economy.",
+    "Interest-rate changes affect what it earns on loans and deposits.",
+    "Heavy bank regulation and capital rules can limit its flexibility.",
+    "Cyberattacks and technology failures are serious risks."
+   ],
+   "tenK": {
+    "form": "10-K",
+    "filed": "2026-02-20",
+    "period": "2025-12-31",
+    "accession": "0000713676-26-000020",
+    "url": "https://www.sec.gov/Archives/edgar/data/713676/000071367626000020/pnc-20251231.htm",
+    "filerCik": "0000713676"
+   },
+   "checkFirst": "Net interest income and margin, loan-loss provisions, and capital ratios.",
+   "addedSession": 10,
+   "verifiedOn": "2026-10-08"
+  },
+  "CME": {
+   "name": "CME Group",
+   "cik": "0001156375",
+   "ir": null,
+   "sector": "Financials",
+   "tier": "Steady",
+   "why": "Futures + options exchange",
+   "tierWhy": "Runs the world's biggest futures exchange and earns fees on trading. Steady, often busier when markets are volatile.",
+   "business": "Operates futures and options exchanges and clearing for interest rates, stock indexes, energy, agriculture, metals, and currencies.",
+   "risks": [
+    "Revenue depends on trading volume, which can drop.",
+    "Faces competition from other exchanges and trading venues.",
+    "Its clearing house could suffer losses if a clearing member fails.",
+    "Technology outages or cyberattacks could disrupt trading."
+   ],
+   "tenK": {
+    "form": "10-K",
+    "filed": "2026-02-26",
+    "period": "2025-12-31",
+    "accession": "0001156375-26-000009",
+    "url": "https://www.sec.gov/Archives/edgar/data/1156375/000115637526000009/cme-20251231.htm",
+    "filerCik": "0001156375"
+   },
+   "checkFirst": "Average daily volume by asset class, clearing and transaction fees, and market data revenue.",
+   "addedSession": 10,
+   "verifiedOn": "2026-10-08"
+  },
+  "ICE": {
+   "name": "Intercontinental Exchange",
+   "cik": "0001571949",
+   "ir": "https://ir.theice.com/",
+   "sector": "Financials",
+   "tier": "Steady",
+   "why": "Exchanges, data + mortgage tech",
+   "tierWhy": "Owns the New York Stock Exchange plus data and mortgage-technology businesses with recurring fees. Steady.",
+   "business": "Operates exchanges and clearing houses (including the New York Stock Exchange), sells fixed income data, and provides mortgage technology.",
+   "risks": [
+    "Trading volumes and market activity can fall.",
+    "The mortgage technology business depends on housing and mortgage activity.",
+    "Heavy regulation of exchanges and clearing houses.",
+    "Carries significant debt from acquisitions."
+   ],
+   "tenK": {
+    "form": "10-K",
+    "filed": "2026-02-05",
+    "period": "2025-12-31",
+    "accession": "0001571949-26-000004",
+    "url": "https://www.sec.gov/Archives/edgar/data/1571949/000157194926000004/ice-20251231.htm",
+    "filerCik": "0001571949"
+   },
+   "checkFirst": "Revenue by segment (Exchanges, Fixed Income and Data Services, Mortgage Technology) and debt.",
+   "addedSession": 10,
+   "verifiedOn": "2026-10-08"
+  },
+  "C": {
+   "name": "Citigroup",
+   "cik": "0000831001",
+   "ir": "https://www.citigroup.com/global/investors",
+   "sector": "Financials",
+   "tier": "Growth",
+   "why": "Global bank in turnaround",
+   "tierWhy": "Huge global bank in the middle of a multi-year restructuring under regulator orders. Higher upside and risk than steady banks. Growth tier.",
+   "business": "Global bank serving companies, governments, and consumers through Services, Markets, Banking, Wealth, and U.S. Personal Banking.",
+   "risks": [
+    "Must fix risk-management and data problems under regulators' consent orders.",
+    "Its transformation and restructuring may not deliver expected results.",
+    "Operates in many countries, so economic and geopolitical shocks hit it.",
+    "Higher capital requirements could limit buybacks and dividends."
+   ],
+   "tenK": {
+    "form": "10-K",
+    "filed": "2026-02-20",
+    "period": "2025-12-31",
+    "accession": "0000831001-26-000011",
+    "url": "https://www.sec.gov/Archives/edgar/data/831001/000083100126000011/c-20251231.htm",
+    "filerCik": "0000831001"
+   },
+   "checkFirst": "Results by business segment, progress on transformation and consent orders, and CET1 capital ratio.",
+   "addedSession": 10,
+   "verifiedOn": "2026-10-08"
+  },
+  "IBKR": {
+   "name": "Interactive Brokers",
+   "cik": "0001381197",
+   "ir": "https://investors.interactivebrokers.com/",
+   "sector": "Financials",
+   "tier": "Growth",
+   "why": "Global online brokerage",
+   "tierWhy": "Fast-growing, highly automated global broker. Earnings swing with interest rates and trading activity. Growth tier.",
+   "business": "Runs an automated global electronic brokerage that lets customers trade stocks, options, futures, bonds, and more in many markets.",
+   "risks": [
+    "Earnings depend heavily on interest rates and trading activity.",
+    "Is controlled by its founder, which limits other shareholders' say.",
+    "Customer losses during market crashes could become its losses.",
+    "Faces regulation in many countries."
+   ],
+   "tenK": {
+    "form": "10-K",
+    "filed": "2026-02-27",
+    "period": "2025-12-31",
+    "accession": "0001381197-26-000062",
+    "url": "https://www.sec.gov/Archives/edgar/data/1381197/000138119726000062/ibkr-20251231.htm",
+    "filerCik": "0001381197"
+   },
+   "checkFirst": "Customer accounts, daily average revenue trades, net interest income, and customer margin loans.",
+   "addedSession": 10,
+   "verifiedOn": "2026-10-08"
+  },
+  "UPST": {
+   "name": "Upstart Holdings",
+   "cik": "0001647639",
+   "ir": null,
+   "sector": "Financials",
+   "tier": "Aggressive growth",
+   "why": "AI lending marketplace",
+   "tierWhy": "AI-lending platform whose results swing sharply with credit markets and interest rates. Aggressive growth.",
+   "business": "Runs an AI lending marketplace that connects consumers with banks and credit unions for personal, auto, and home loans.",
+   "risks": [
+    "Depends on banks, credit unions, and investors to fund loans.",
+    "Its AI models may not predict loan losses correctly.",
+    "Higher interest rates and a weak economy reduce loan demand.",
+    "Lending laws and regulators could restrict its business."
+   ],
+   "tenK": {
+    "form": "10-K",
+    "filed": "2026-02-10",
+    "period": "2025-12-31",
+    "accession": "0001647639-26-000027",
+    "url": "https://www.sec.gov/Archives/edgar/data/1647639/000164763926000027/upst-20251231.htm",
+    "filerCik": "0001647639"
+   },
+   "checkFirst": "Loan volume, conversion rate, fee revenue, and loans held on its own balance sheet.",
+   "addedSession": 10,
+   "verifiedOn": "2026-10-08"
+  },
+  "TOST": {
+   "name": "Toast",
+   "cik": "0001650164",
+   "ir": "https://investors.toasttab.com/",
+   "sector": "Financials",
+   "tier": "Aggressive growth",
+   "why": "Restaurant software + payments",
+   "tierWhy": "Fast-growing restaurant tech platform that only recently turned profitable. Aggressive growth.",
+   "business": "Sells a cloud platform for restaurants: point-of-sale systems, payment processing, and software for operations and marketing.",
+   "risks": [
+    "Depends on the restaurant industry, which is sensitive to the economy.",
+    "Payment processing exposes it to fraud and partner risks.",
+    "Faces strong competition in restaurant tech and payments.",
+    "Changes to its pricing and packaging could hurt growth or profitability."
+   ],
+   "tenK": {
+    "form": "10-K",
+    "filed": "2026-02-18",
+    "period": "2025-12-31",
+    "accession": "0001650164-26-000057",
+    "url": "https://www.sec.gov/Archives/edgar/data/1650164/000165016426000057/tost-20251231.htm",
+    "filerCik": "0001650164"
+   },
+   "checkFirst": "Annualized recurring run-rate, number of locations, and gross payment volume.",
+   "addedSession": 10,
+   "verifiedOn": "2026-10-08"
+  },
+  "LMND": {
+   "name": "Lemonade",
+   "cik": "0001691421",
+   "ir": "https://investor.lemonade.com/",
+   "sector": "Financials",
+   "tier": "Aggressive growth",
+   "why": "AI-driven insurance app",
+   "tierWhy": "Fast-growing app-based insurer that has not been consistently profitable. Aggressive growth.",
+   "business": "Sells renters, homeowners, car, pet, and life insurance through an app that uses AI and bots.",
+   "risks": [
+    "Has a history of losses and may not become profitable.",
+    "Catastrophes and claims could cost more than expected.",
+    "Depends on reinsurance to manage risk.",
+    "Insurance regulators could restrict pricing or operations."
+   ],
+   "tenK": {
+    "form": "10-K",
+    "filed": "2026-02-25",
+    "period": "2025-12-31",
+    "accession": "0001691421-26-000016",
+    "url": "https://www.sec.gov/Archives/edgar/data/1691421/000169142126000016/lmnd-20251231.htm",
+    "filerCik": "0001691421"
+   },
+   "checkFirst": "In-force premium, gross loss ratio, customer count, and cash burn.",
+   "addedSession": 10,
+   "verifiedOn": "2026-10-08"
+  },
+  "DUK": {
+   "name": "Duke Energy",
+   "cik": "0001326160",
+   "ir": "https://investors.duke-energy.com/",
+   "sector": "Energy",
+   "tier": "Defensive",
+   "why": "Regulated electric + gas utility",
+   "tierWhy": "Large regulated utility selling electricity and gas people need in any economy, with a long dividend history. Defensive.",
+   "business": "Regulated utility providing electricity and natural gas to customers in the Carolinas, Florida, and the Midwest.",
+   "risks": [
+    "Regulators decide what rates it can charge and what costs it can recover.",
+    "Severe weather and storms can damage its systems and raise costs.",
+    "Needs large amounts of borrowed money for its building plans.",
+    "Environmental and climate rules affect its power plants."
+   ],
+   "tenK": {
+    "form": "10-K",
+    "filed": "2026-02-26",
+    "period": "2025-12-31",
+    "accession": "0001326160-26-000014",
+    "url": "https://www.sec.gov/Archives/edgar/data/1326160/000132616026000014/duk-20251231.htm",
+    "filerCik": "0001326160"
+   },
+   "checkFirst": "Earnings by segment (Electric Utilities and Infrastructure, Gas Utilities), capital spending plan, and debt.",
+   "addedSession": 10,
+   "verifiedOn": "2026-10-08"
+  },
+  "SO": {
+   "name": "Southern Company",
+   "cik": "0000092122",
+   "ir": "https://investor.southerncompany.com/",
+   "sector": "Energy",
+   "tier": "Defensive",
+   "why": "Regulated Southeast utility",
+   "tierWhy": "Large regulated utility with a long dividend history. Defensive, though large building projects add risk.",
+   "business": "Holding company for regulated electric utilities (including Georgia Power and Alabama Power) and Southern Company Gas.",
+   "risks": [
+    "Regulators decide what rates it can charge.",
+    "Large construction projects can run over budget or late.",
+    "Severe weather can damage its systems.",
+    "Environmental and climate rules affect its plants."
+   ],
+   "tenK": {
+    "form": "10-K",
+    "filed": "2026-02-19",
+    "period": "2025-12-31",
+    "accession": "0000092122-26-000006",
+    "url": "https://www.sec.gov/Archives/edgar/data/92122/000009212226000006/so-20251231.htm",
+    "filerCik": "0000092122"
+   },
+   "checkFirst": "Results of each traditional electric operating company, capital spending plans, and debt.",
+   "addedSession": 10,
+   "verifiedOn": "2026-10-08"
+  },
+  "NEE": {
+   "name": "NextEra Energy",
+   "cik": "0000753308",
+   "ir": "https://www.investor.nexteraenergy.com/",
+   "sector": "Energy",
+   "tier": "Steady",
+   "why": "Florida utility + renewables",
+   "tierWhy": "Large utility (Florida Power & Light) plus a big renewable-energy developer. Steady, with more growth and risk than a plain utility.",
+   "business": "Owns Florida Power & Light, a large regulated utility, and NextEra Energy Resources, which builds wind, solar, battery storage, and other energy projects.",
+   "risks": [
+    "Regulators decide what rates Florida Power & Light can charge.",
+    "Changes to government policies and tax credits for clean energy could hurt the renewables business.",
+    "Depends on raising large amounts of capital, which costs more when interest rates rise.",
+    "Hurricanes and severe weather can damage its systems."
+   ],
+   "tenK": {
+    "form": "10-K",
+    "filed": "2026-02-13",
+    "period": "2025-12-31",
+    "accession": "0000753308-26-000015",
+    "url": "https://www.sec.gov/Archives/edgar/data/753308/000075330826000015/nee-20251231.htm",
+    "filerCik": "0000753308"
+   },
+   "checkFirst": "FPL vs. NextEra Energy Resources earnings, capital spending, and debt.",
+   "addedSession": 10,
+   "verifiedOn": "2026-10-08"
+  },
+  "OKE": {
+   "name": "ONEOK",
+   "cik": "0001039684",
+   "ir": "https://ir.oneok.com/",
+   "sector": "Energy",
+   "tier": "Steady",
+   "why": "Natural gas + NGL pipelines",
+   "tierWhy": "Large midstream pipeline company earning mostly fee-based revenue, with a dividend history. Steady, though tied to energy volumes.",
+   "business": "Operates natural gas liquids, natural gas, crude oil, and refined products pipelines, processing plants, and storage.",
+   "risks": [
+    "Volumes depend on oil and gas drilling activity by its customers.",
+    "Commodity price swings affect part of its earnings.",
+    "Carries a lot of debt, partly from acquisitions.",
+    "Pipeline accidents and environmental rules bring costs."
+   ],
+   "tenK": {
+    "form": "10-K",
+    "filed": "2026-02-24",
+    "period": "2025-12-31",
+    "accession": "0001039684-26-000006",
+    "url": "https://www.sec.gov/Archives/edgar/data/1039684/000103968426000006/oke-20251231.htm",
+    "filerCik": "0001039684"
+   },
+   "checkFirst": "Earnings by segment, fee-based share of earnings, and debt from recent acquisitions.",
+   "addedSession": 10,
+   "verifiedOn": "2026-10-08"
+  },
+  "LNG": {
+   "name": "Cheniere Energy",
+   "cik": "0000003570",
+   "ir": "https://lngir.cheniere.com/",
+   "sector": "Energy",
+   "tier": "Growth",
+   "why": "U.S. LNG exporter",
+   "tierWhy": "Largest U.S. exporter of liquefied natural gas with long-term contracts. Growth tier: big projects and global gas prices add risk.",
+   "business": "Liquefies natural gas at its Sabine Pass and Corpus Christi terminals and sells it to buyers around the world, largely under long-term contracts.",
+   "risks": [
+    "Depends on customers honoring long-term contracts.",
+    "Expansion projects could run late or over budget.",
+    "Carries a large amount of debt.",
+    "Global LNG competition and prices could hurt uncontracted sales."
+   ],
+   "tenK": {
+    "form": "10-K",
+    "filed": "2026-02-26",
+    "period": "2025-12-31",
+    "accession": "0000003570-26-000005",
+    "url": "https://www.sec.gov/Archives/edgar/data/3570/000000357026000005/lng-20251231.htm",
+    "filerCik": "0000003570"
+   },
+   "checkFirst": "Cargoes exported, contracted vs. spot volumes, and debt across Cheniere and its subsidiaries.",
+   "addedSession": 10,
+   "verifiedOn": "2026-10-08"
+  },
+  "TRGP": {
+   "name": "Targa Resources",
+   "cik": "0001389170",
+   "ir": null,
+   "sector": "Energy",
+   "tier": "Growth",
+   "why": "Gas gathering + NGL logistics",
+   "tierWhy": "Fast-growing midstream company tied to Permian Basin output. Growth tier.",
+   "business": "Gathers and processes natural gas and transports, fractionates, stores, and exports natural gas liquids.",
+   "risks": [
+    "Volumes depend on drilling by oil and gas producers.",
+    "Commodity price swings affect earnings.",
+    "Carries substantial debt.",
+    "Environmental and pipeline regulation."
+   ],
+   "tenK": {
+    "form": "10-K",
+    "filed": "2026-02-19",
+    "period": "2025-12-31",
+    "accession": "0001193125-26-059296",
+    "url": "https://www.sec.gov/Archives/edgar/data/1389170/000119312526059296/trgp-20251231.htm",
+    "filerCik": "0001389170"
+   },
+   "checkFirst": "Volumes by segment, fee-based margin share, and growth capital spending.",
+   "addedSession": 10,
+   "verifiedOn": "2026-10-08"
+  },
+  "EQT": {
+   "name": "EQT",
+   "cik": "0000033213",
+   "ir": "https://ir.eqt.com/",
+   "sector": "Energy",
+   "tier": "Growth",
+   "why": "Appalachian natural gas producer",
+   "tierWhy": "Largest U.S. natural gas producer; profits swing with gas prices. Growth tier.",
+   "business": "Produces natural gas from the Appalachian Basin and owns pipelines that move it.",
+   "risks": [
+    "Natural gas prices are volatile, and low prices hurt results.",
+    "Depends on pipeline capacity to get gas to market.",
+    "Drilling and environmental regulation can raise costs.",
+    "Carries substantial debt."
+   ],
+   "tenK": {
+    "form": "10-K",
+    "filed": "2026-02-18",
+    "period": "2025-12-31",
+    "accession": "0000033213-26-000018",
+    "url": "https://www.sec.gov/Archives/edgar/data/33213/000003321326000018/eqt-20251231.htm",
+    "filerCik": "0000033213"
+   },
+   "checkFirst": "Production volumes, realized price per unit, and free cash flow vs. debt reduction.",
+   "addedSession": 10,
+   "verifiedOn": "2026-10-08"
+  },
+  "DVN": {
+   "name": "Devon Energy",
+   "cik": "0001090012",
+   "ir": "https://investors.devonenergy.com/",
+   "sector": "Energy",
+   "tier": "Growth",
+   "why": "U.S. oil & gas producer",
+   "tierWhy": "Shale oil and gas producer whose earnings swing with commodity prices. Growth tier.",
+   "business": "Explores for and produces oil, natural gas, and natural gas liquids in U.S. basins such as the Delaware Basin.",
+   "risks": [
+    "Oil and gas prices are volatile and drive results.",
+    "Reserve estimates could prove too high.",
+    "Drilling, environmental, and climate rules can raise costs.",
+    "Operations depend on pipelines and other infrastructure."
+   ],
+   "tenK": {
+    "form": "10-K",
+    "filed": "2026-02-18",
+    "period": "2025-12-31",
+    "accession": "0001193125-26-056485",
+    "url": "https://www.sec.gov/Archives/edgar/data/1090012/000119312526056485/dvn-20251231.htm",
+    "filerCik": "0001090012"
+   },
+   "checkFirst": "Production by basin, realized prices, capital spending, and shareholder returns vs. free cash flow.",
+   "addedSession": 10,
+   "verifiedOn": "2026-10-08"
+  },
+  "NRG": {
+   "name": "NRG Energy",
+   "cik": "0001013871",
+   "ir": null,
+   "sector": "Energy",
+   "tier": "Aggressive growth",
+   "why": "Power plants + retail electricity",
+   "tierWhy": "Power generator and retail electricity seller; earnings swing with power prices and weather. Aggressive growth.",
+   "business": "Generates electricity and sells power, natural gas, and home services to retail customers through brands like Reliant and Direct Energy.",
+   "risks": [
+    "Power and fuel prices are volatile.",
+    "Extreme weather can spike costs and strain plants.",
+    "Carries substantial debt.",
+    "Power markets are heavily regulated."
+   ],
+   "tenK": {
+    "form": "10-K",
+    "filed": "2026-02-24",
+    "period": "2025-12-31",
+    "accession": "0001013871-26-000004",
+    "url": "https://www.sec.gov/Archives/edgar/data/1013871/000101387126000004/nrg-20251231.htm",
+    "filerCik": "0001013871"
+   },
+   "checkFirst": "Earnings by segment, power-plant availability, and debt.",
+   "addedSession": 10,
+   "verifiedOn": "2026-10-08"
+  },
+  "OKLO": {
+   "name": "Oklo",
+   "cik": "0001849056",
+   "ir": "https://www.oklo.com/investors/default.aspx",
+   "sector": "Energy",
+   "tier": "Aggressive growth",
+   "why": "Small nuclear reactor developer",
+   "tierWhy": "Pre-revenue company developing small nuclear power plants. Among the riskiest names here. Aggressive growth.",
+   "business": "Is developing small advanced fission power plants (Aurora powerhouses) to sell electricity, plus fuel recycling services.",
+   "risks": [
+    "Has no revenue yet and expects losses for years.",
+    "Needs Nuclear Regulatory Commission approval, which may be delayed or denied.",
+    "Needs reliable supplies of nuclear fuel.",
+    "Its technology is unproven at commercial scale."
+   ],
+   "tenK": {
+    "form": "10-K",
+    "filed": "2026-03-17",
+    "period": "2025-12-31",
+    "accession": "0001628280-26-018698",
+    "url": "https://www.sec.gov/Archives/edgar/data/1849056/000162828026018698/oklo-20251231.htm",
+    "filerCik": "0001849056"
+   },
+   "checkFirst": "Cash on hand vs. operating losses, licensing milestones, and customer agreements.",
+   "addedSession": 10,
+   "verifiedOn": "2026-10-08"
+  },
+  "MDLZ": {
+   "name": "Mondelez International",
+   "cik": "0001103982",
+   "ir": null,
+   "sector": "Consumer",
+   "tier": "Defensive",
+   "why": "Snacks (Oreo, Cadbury)",
+   "tierWhy": "Global snack maker with well-known brands people buy in any economy. Defensive.",
+   "business": "Makes and sells snacks worldwide, including biscuits, chocolate, gum, and candy under brands like Oreo, Cadbury, and Milka.",
+   "risks": [
+    "Cocoa and other ingredient costs can rise sharply.",
+    "Sells in many countries, so currency swings and politics matter.",
+    "Competes with other brands and store brands.",
+    "Consumer tastes and health trends change."
+   ],
+   "tenK": {
+    "form": "10-K",
+    "filed": "2026-02-04",
+    "period": "2025-12-31",
+    "accession": "0001628280-26-005345",
+    "url": "https://www.sec.gov/Archives/edgar/data/1103982/000162828026005345/mdlz-20251231.htm",
+    "filerCik": "0001103982"
+   },
+   "checkFirst": "Revenue by region, organic growth vs. price increases, and gross margin.",
+   "addedSession": 10,
+   "verifiedOn": "2026-10-08"
+  },
+  "YUM": {
+   "name": "Yum! Brands",
+   "cik": "0001041061",
+   "ir": "https://investors.yum.com/",
+   "sector": "Consumer",
+   "tier": "Steady",
+   "why": "Franchised KFC, Taco Bell, Pizza Hut",
+   "tierWhy": "Mostly franchised restaurant company earning royalties. Steady, though debt is high.",
+   "business": "Franchises and runs KFC, Taco Bell, Pizza Hut, and Habit Burger restaurants around the world.",
+   "risks": [
+    "Depends on franchisees doing well and paying royalties.",
+    "Food safety problems could hurt its brands.",
+    "Carries a large amount of debt.",
+    "International operations bring currency and political risks."
+   ],
+   "tenK": {
+    "form": "10-K",
+    "filed": "2026-02-20",
+    "period": "2025-12-31",
+    "accession": "0001041061-26-000084",
+    "url": "https://www.sec.gov/Archives/edgar/data/1041061/000104106126000084/yum-20251231.htm",
+    "filerCik": "0001041061"
+   },
+   "checkFirst": "System sales growth by brand, unit growth, and debt.",
+   "addedSession": 10,
+   "verifiedOn": "2026-10-08"
+  },
+  "DIS": {
+   "name": "Walt Disney",
+   "cik": "0001744489",
+   "ir": "https://thewaltdisneycompany.com/investor-relations/",
+   "sector": "Consumer",
+   "tier": "Steady",
+   "why": "Parks, streaming, entertainment",
+   "tierWhy": "Large entertainment company with parks, films, and streaming. Steady, but tied to consumer spending.",
+   "business": "Runs entertainment (films, TV, Disney+ and Hulu streaming), ESPN sports, and theme parks, cruises, and consumer products.",
+   "risks": [
+    "Theme-park and travel spending falls in a weak economy.",
+    "Changes in how people watch TV hurt traditional networks.",
+    "Faces strong competition in streaming.",
+    "Depends on making hit content."
+   ],
+   "tenK": {
+    "form": "10-K",
+    "filed": "2025-11-13",
+    "period": "2025-09-27",
+    "accession": "0001744489-25-000155",
+    "url": "https://www.sec.gov/Archives/edgar/data/1744489/000174448925000155/dis-20250927.htm",
+    "filerCik": "0001744489"
+   },
+   "checkFirst": "Segment results (Entertainment, Sports, Experiences), streaming profitability, and capital spending on parks.",
+   "addedSession": 10,
+   "verifiedOn": "2026-10-08"
+  },
+  "ROST": {
+   "name": "Ross Stores",
+   "cik": "0000745732",
+   "ir": null,
+   "sector": "Consumer",
+   "tier": "Steady",
+   "why": "Off-price retail",
+   "tierWhy": "Off-price retailer that does relatively well when shoppers want bargains. Steady.",
+   "business": "Runs Ross Dress for Less and dd's DISCOUNTS off-price stores selling apparel and home goods.",
+   "risks": [
+    "Depends on buying enough good merchandise at good prices.",
+    "Faces competition from other retailers.",
+    "Tariffs and import costs could raise prices.",
+    "Consumer spending can weaken."
+   ],
+   "tenK": {
+    "form": "10-K",
+    "filed": "2026-03-31",
+    "period": "2026-01-31",
+    "accession": "0000745732-26-000006",
+    "url": "https://www.sec.gov/Archives/edgar/data/745732/000074573226000006/rost-20260131.htm",
+    "filerCik": "0000745732"
+   },
+   "checkFirst": "Comparable store sales, operating margin, and new store openings.",
+   "addedSession": 10,
+   "verifiedOn": "2026-10-08"
+  },
+  "NFLX": {
+   "name": "Netflix",
+   "cik": "0001065280",
+   "ir": "https://ir.netflix.net/",
+   "sector": "Consumer",
+   "tier": "Growth",
+   "why": "Streaming leader",
+   "tierWhy": "Largest streaming service, profitable and growing, but valued for growth. Growth tier.",
+   "business": "Runs a subscription streaming service with TV series, films, and games, including an ad-supported plan.",
+   "risks": [
+    "Must keep attracting and keeping members.",
+    "Faces intense competition for viewers' time.",
+    "Content is expensive and hits are uncertain.",
+    "International operations bring currency and regulation risk."
+   ],
+   "tenK": {
+    "form": "10-K",
+    "filed": "2026-01-23",
+    "period": "2025-12-31",
+    "accession": "0001065280-26-000034",
+    "url": "https://www.sec.gov/Archives/edgar/data/1065280/000106528026000034/nflx-20251231.htm",
+    "filerCik": "0001065280"
+   },
+   "checkFirst": "Revenue by region, operating margin, and content spending vs. free cash flow.",
+   "addedSession": 10,
+   "verifiedOn": "2026-10-08"
+  },
+  "AZO": {
+   "name": "AutoZone",
+   "cik": "0000866787",
+   "ir": null,
+   "sector": "Consumer",
+   "tier": "Growth",
+   "why": "Auto parts retail",
+   "tierWhy": "Steady auto-parts retailer that has grown for decades; valued as a growth compounder. Growth tier.",
+   "business": "Sells auto parts and accessories to do-it-yourself customers and repair shops through stores in the U.S., Mexico, and Brazil.",
+   "risks": [
+    "Demand depends on miles driven and the number of older cars on the road.",
+    "Faces competition from other parts sellers and online sellers.",
+    "Relies on suppliers, many abroad, which exposes it to tariffs.",
+    "Carries significant debt and relies on borrowing."
+   ],
+   "tenK": {
+    "form": "10-K",
+    "filed": "2025-10-27",
+    "period": "2025-08-30",
+    "accession": "0001104659-25-102611",
+    "url": "https://www.sec.gov/Archives/edgar/data/866787/000110465925102611/azo-20250830x10k.htm",
+    "filerCik": "0000866787"
+   },
+   "checkFirst": "Same-store sales, commercial vs. retail growth, and share buybacks vs. debt.",
+   "addedSession": 10,
+   "verifiedOn": "2026-10-08"
+  },
+  "RIVN": {
+   "name": "Rivian Automotive",
+   "cik": "0001874178",
+   "ir": "https://rivian.com/investors",
+   "sector": "Consumer",
+   "tier": "Aggressive growth",
+   "why": "Electric trucks + SUVs",
+   "tierWhy": "Young electric-vehicle maker that is still losing money. Aggressive growth.",
+   "business": "Designs and builds electric pickups, SUVs, and commercial vans, and sells software and services.",
+   "risks": [
+    "Has a history of large losses and may need more funding.",
+    "Launching its next, lower-priced model could be delayed.",
+    "Depends on suppliers for batteries and parts.",
+    "Changes to EV tax credits and policies could hurt demand."
+   ],
+   "tenK": {
+    "form": "10-K",
+    "filed": "2026-02-12",
+    "period": "2025-12-31",
+    "accession": "0001874178-26-000008",
+    "url": "https://www.sec.gov/Archives/edgar/data/1874178/000187417826000008/rivn-20251231.htm",
+    "filerCik": "0001874178"
+   },
+   "checkFirst": "Vehicles produced and delivered, gross profit per vehicle, and cash on hand.",
+   "addedSession": 10,
+   "verifiedOn": "2026-10-08"
+  },
+  "CVNA": {
+   "name": "Carvana",
+   "cik": "0001690820",
+   "ir": "https://investors.carvana.com/",
+   "sector": "Consumer",
+   "tier": "Aggressive growth",
+   "why": "Online used-car retailer",
+   "tierWhy": "Online used-car seller that recovered from near-crisis but still carries heavy debt. Aggressive growth.",
+   "business": "Sells and buys used cars online, with financing and vehicle delivery or pickup.",
+   "risks": [
+    "Carries a large amount of debt.",
+    "Depends on selling the car loans it makes.",
+    "Used-car prices and demand are sensitive to the economy and interest rates.",
+    "Faces competition from dealers and other online sellers."
+   ],
+   "tenK": {
+    "form": "10-K",
+    "filed": "2026-02-18",
+    "period": "2025-12-31",
+    "accession": "0001690820-26-000009",
+    "url": "https://www.sec.gov/Archives/edgar/data/1690820/000169082026000009/cvna-20251231.htm",
+    "filerCik": "0001690820"
+   },
+   "checkFirst": "Retail units sold, gross profit per unit, and total debt.",
+   "addedSession": 10,
+   "verifiedOn": "2026-10-08"
+  },
+  "RBLX": {
+   "name": "Roblox",
+   "cik": "0001315098",
+   "ir": "https://ir.roblox.com/",
+   "sector": "Consumer",
+   "tier": "Aggressive growth",
+   "why": "Online game platform",
+   "tierWhy": "Large online gaming platform that has run net losses. Aggressive growth.",
+   "business": "Runs an online platform where users play, create, and share experiences, paying with the virtual currency Robux.",
+   "risks": [
+    "Safety of young users brings lawsuits, regulation, and reputation risk.",
+    "Has a history of losses.",
+    "Depends on app stores, which take a share of revenue.",
+    "Must keep users engaged as tastes change."
+   ],
+   "tenK": {
+    "form": "10-K",
+    "filed": "2026-02-11",
+    "period": "2025-12-31",
+    "accession": "0001315098-26-000024",
+    "url": "https://www.sec.gov/Archives/edgar/data/1315098/000131509826000024/rblx-20251231.htm",
+    "filerCik": "0001315098"
+   },
+   "checkFirst": "Daily active users, bookings, and hours engaged.",
+   "addedSession": 10,
+   "verifiedOn": "2026-10-08"
+  },
+  "CELH": {
+   "name": "Celsius Holdings",
+   "cik": "0001341766",
+   "ir": "https://ir.celsiusholdingsinc.com/",
+   "sector": "Consumer",
+   "tier": "Aggressive growth",
+   "why": "Energy drinks",
+   "tierWhy": "Fast-growing energy-drink brand that relies heavily on one distributor. Aggressive growth.",
+   "business": "Sells functional energy drinks under the Celsius brand and other brands, distributed mainly through PepsiCo.",
+   "risks": [
+    "Depends heavily on PepsiCo for distribution.",
+    "Faces intense competition in energy drinks.",
+    "Relies on outside co-packers to make its drinks.",
+    "Consumer tastes can change quickly."
+   ],
+   "tenK": {
+    "form": "10-K",
+    "filed": "2026-03-02",
+    "period": "2025-12-31",
+    "accession": "0001341766-26-000024",
+    "url": "https://www.sec.gov/Archives/edgar/data/1341766/000134176626000024/celh-20251231.htm",
+    "filerCik": "0001341766"
+   },
+   "checkFirst": "Revenue by brand and channel, gross margin, and distributor concentration.",
+   "addedSession": 10,
+   "verifiedOn": "2026-10-08"
+  },
+  "RSG": {
+   "name": "Republic Services",
+   "cik": "0001060391",
+   "ir": null,
+   "sector": "Industrials",
+   "tier": "Defensive",
+   "why": "Waste + recycling",
+   "tierWhy": "Collects trash and recycling, a service needed in any economy. Defensive.",
+   "business": "Provides waste collection, transfer, recycling, landfill, and environmental services across the U.S.",
+   "risks": [
+    "Faces competition from other waste companies and local governments.",
+    "Environmental rules and landfill liabilities bring costs.",
+    "Fuel and labor costs can rise.",
+    "Recycled commodity prices are volatile."
+   ],
+   "tenK": {
+    "form": "10-K",
+    "filed": "2026-02-18",
+    "period": "2025-12-31",
+    "accession": "0001060391-26-000094",
+    "url": "https://www.sec.gov/Archives/edgar/data/1060391/000106039126000094/rsg-20251231.htm",
+    "filerCik": "0001060391"
+   },
+   "checkFirst": "Revenue by service line, price vs. volume growth, and free cash flow.",
+   "addedSession": 10,
+   "verifiedOn": "2026-10-08"
+  },
+  "NOC": {
+   "name": "Northrop Grumman",
+   "cik": "0001133421",
+   "ir": null,
+   "sector": "Industrials",
+   "tier": "Defensive",
+   "why": "Defense + space contractor",
+   "tierWhy": "Large defense contractor with long government contracts. Defensive: spending is steady across economic cycles.",
+   "business": "Makes aircraft (including a new stealth bomber), space systems, missiles, and mission systems for the U.S. government and allies.",
+   "risks": [
+    "Depends heavily on U.S. government spending.",
+    "Fixed-price contracts can cause losses if costs run over.",
+    "Government contracts can be cut or canceled.",
+    "Security breaches and cyberattacks are a risk."
+   ],
+   "tenK": {
+    "form": "10-K",
+    "filed": "2026-01-27",
+    "period": "2025-12-31",
+    "accession": "0001133421-26-000003",
+    "url": "https://www.sec.gov/Archives/edgar/data/1133421/000113342126000003/noc-20251231.htm",
+    "filerCik": "0001133421"
+   },
+   "checkFirst": "Sales by segment, backlog, and losses on fixed-price programs.",
+   "addedSession": 10,
+   "verifiedOn": "2026-10-08"
+  },
+  "CSX": {
+   "name": "CSX",
+   "cik": "0000277948",
+   "ir": "https://investors.csx.com/",
+   "sector": "Industrials",
+   "tier": "Steady",
+   "why": "Eastern U.S. railroad",
+   "tierWhy": "Large railroad with hard-to-copy track network. Steady but cyclical.",
+   "business": "Operates a freight railroad in the eastern U.S., moving goods like merchandise, coal, and intermodal containers.",
+   "risks": [
+    "Shipping volumes depend on the economy.",
+    "Heavily regulated, including safety rules.",
+    "Labor unions and agreements affect costs.",
+    "Accidents and severe weather can disrupt service."
+   ],
+   "tenK": {
+    "form": "10-K",
+    "filed": "2026-02-12",
+    "period": "2025-12-31",
+    "accession": "0000277948-26-000006",
+    "url": "https://www.sec.gov/Archives/edgar/data/277948/000027794826000006/csx-20251231.htm",
+    "filerCik": "0000277948"
+   },
+   "checkFirst": "Volume by commodity, operating ratio, and capital spending.",
+   "addedSession": 10,
+   "verifiedOn": "2026-10-08"
+  },
+  "EMR": {
+   "name": "Emerson Electric",
+   "cik": "0000032604",
+   "ir": "https://www.emerson.com/en-us/investors",
+   "sector": "Industrials",
+   "tier": "Steady",
+   "why": "Industrial automation",
+   "tierWhy": "Long-established industrial technology company with a dividend history. Steady, but cyclical.",
+   "business": "Makes automation technology for factories and plants: control systems, valves, measurement instruments, and software (including AspenTech).",
+   "risks": [
+    "Demand depends on industrial spending, which is cyclical.",
+    "Acquisitions and divestitures bring integration risk.",
+    "Operates worldwide, so currencies and trade policy matter.",
+    "Cyberattacks could disrupt its systems or products."
+   ],
+   "tenK": {
+    "form": "10-K",
+    "filed": "2025-11-10",
+    "period": "2025-09-30",
+    "accession": "0000032604-25-000087",
+    "url": "https://www.sec.gov/Archives/edgar/data/32604/000003260425000087/emr-20250930.htm",
+    "filerCik": "0000032604"
+   },
+   "checkFirst": "Segment results, orders trend, and debt from acquisitions.",
+   "addedSession": 10,
+   "verifiedOn": "2026-10-08"
+  },
+  "CTAS": {
+   "name": "Cintas",
+   "cik": "0000723254",
+   "ir": "https://www.cintas.com/investors/",
+   "sector": "Industrials",
+   "tier": "Growth",
+   "why": "Uniforms + workplace supplies",
+   "tierWhy": "Steady, fast-compounding business-services company; valued for growth. Growth tier.",
+   "business": "Rents and sells uniforms and supplies workplace items like mats, restroom supplies, first aid, and fire safety services.",
+   "risks": [
+    "Demand depends on employment levels at its business customers.",
+    "Fuel, energy, and materials costs can rise.",
+    "Faces competition.",
+    "Labor and benefits costs can rise."
+   ],
+   "tenK": {
+    "form": "10-K",
+    "filed": "2026-07-29",
+    "period": "2026-05-31",
+    "accession": "0000723254-26-000028",
+    "url": "https://www.sec.gov/Archives/edgar/data/723254/000072325426000028/ctas-20260531.htm",
+    "filerCik": "0000723254"
+   },
+   "checkFirst": "Organic revenue growth, operating margin, and free cash flow.",
+   "addedSession": 10,
+   "verifiedOn": "2026-10-08"
+  },
+  "HWM": {
+   "name": "Howmet Aerospace",
+   "cik": "0000004281",
+   "ir": "https://www.howmet.com/investors/",
+   "sector": "Industrials",
+   "tier": "Growth",
+   "why": "Jet-engine parts",
+   "tierWhy": "Fast-growing maker of engine parts riding demand for new aircraft. Growth tier.",
+   "business": "Makes engineered parts for jet engines, fasteners, structures, and forged wheels for aerospace and trucks.",
+   "risks": [
+    "Depends on the commercial aerospace industry and a few big customers.",
+    "Raw material and energy costs can rise.",
+    "Faces competition in its markets.",
+    "Tariffs and trade policy affect costs."
+   ],
+   "tenK": {
+    "form": "10-K",
+    "filed": "2026-02-12",
+    "period": "2025-12-31",
+    "accession": "0000004281-26-000012",
+    "url": "https://www.sec.gov/Archives/edgar/data/4281/000000428126000012/hwm-20251231.htm",
+    "filerCik": "0000004281"
+   },
+   "checkFirst": "Revenue by segment, commercial aerospace share, and margins.",
+   "addedSession": 10,
+   "verifiedOn": "2026-10-08"
+  },
+  "TDG": {
+   "name": "TransDigm Group",
+   "cik": "0001260221",
+   "ir": "https://www.transdigm.com/investor-relations/",
+   "sector": "Industrials",
+   "tier": "Growth",
+   "why": "Aircraft parts with heavy debt",
+   "tierWhy": "Profitable aircraft-parts maker that uses lots of debt to boost returns. Growth tier.",
+   "business": "Designs and makes aircraft components, many of them proprietary and sole-source, sold for new planes and aftermarket replacement.",
+   "risks": [
+    "Carries a very large amount of debt.",
+    "Depends on commercial air travel and aerospace demand.",
+    "Government and defense pricing reviews could cut profits.",
+    "Growth depends on acquisitions."
+   ],
+   "tenK": {
+    "form": "10-K",
+    "filed": "2025-11-12",
+    "period": "2025-09-30",
+    "accession": "0001260221-25-000081",
+    "url": "https://www.sec.gov/Archives/edgar/data/1260221/000126022125000081/tdg-20250930.htm",
+    "filerCik": "0001260221"
+   },
+   "checkFirst": "Commercial OEM vs. aftermarket vs. defense revenue, EBITDA margin, and total debt.",
+   "addedSession": 10,
+   "verifiedOn": "2026-10-08"
+  },
+  "VRT": {
+   "name": "Vertiv Holdings",
+   "cik": "0001674101",
+   "ir": "https://investors.vertiv.com/",
+   "sector": "Industrials",
+   "tier": "Aggressive growth",
+   "why": "Data-center power + cooling",
+   "tierWhy": "Fast-growing supplier of power and cooling gear for AI data centers. Aggressive growth.",
+   "business": "Makes power, thermal-management (cooling), and IT infrastructure equipment and services for data centers and communication networks.",
+   "risks": [
+    "Demand depends on data-center spending, which can be uneven.",
+    "Supply-chain problems can delay production.",
+    "Faces strong competition.",
+    "Tariffs and trade policy raise costs."
+   ],
+   "tenK": {
+    "form": "10-K",
+    "filed": "2026-02-13",
+    "period": "2025-12-31",
+    "accession": "0001674101-26-000008",
+    "url": "https://www.sec.gov/Archives/edgar/data/1674101/000167410126000008/vrt-20251231.htm",
+    "filerCik": "0001674101"
+   },
+   "checkFirst": "Orders and backlog, organic sales growth by region, and margins.",
+   "addedSession": 10,
+   "verifiedOn": "2026-10-08"
+  },
+  "JOBY": {
+   "name": "Joby Aviation",
+   "cik": "0001819848",
+   "ir": "https://ir.jobyaviation.com/",
+   "sector": "Industrials",
+   "tier": "Aggressive growth",
+   "why": "Electric air taxis",
+   "tierWhy": "Pre-revenue company developing electric air taxis; heavy losses. Among the riskiest names here. Aggressive growth.",
+   "business": "Is developing an electric vertical takeoff and landing aircraft to run its own air taxi service.",
+   "risks": [
+    "Has a history of losses and no meaningful revenue yet.",
+    "Needs FAA certification, which could be delayed.",
+    "Building aircraft at scale is unproven.",
+    "Customers may not adopt air taxi service."
+   ],
+   "tenK": {
+    "form": "10-K",
+    "filed": "2026-02-27",
+    "period": "2025-12-31",
+    "accession": "0001819848-26-000160",
+    "url": "https://www.sec.gov/Archives/edgar/data/1819848/000181984826000160/joby-20251231.htm",
+    "filerCik": "0001819848"
+   },
+   "checkFirst": "Cash on hand vs. losses, certification progress, and production milestones.",
+   "addedSession": 10,
+   "verifiedOn": "2026-10-08"
   }
  }
 };

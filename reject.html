@@ -62,6 +62,8 @@
   <script>
     if (!IG.requireAnswers(["disclaimerAck", "risk", "return", "sectors"])) {
       location.replace("index.html");
+    } else if (!IG.requireAnswers(["amount", "years"])) {
+      location.replace("money.html");
     } else {
       /* Ensure we are on an alternate (if arrived with variant 0 from plan click, nextPlanVariant already ran) */
       var v = IG.getPlanVariant();

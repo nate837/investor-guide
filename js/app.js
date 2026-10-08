@@ -1,5 +1,6 @@
 /**
- * Investor Guide — Session 3 quiz persistence + UI helpers.
+ * Investor Guide — quiz persistence + UI helpers (Session 3; Session 10 adds starting amount,
+ * monthly contribution, and time period, stored in the same sessionStorage object).
  * Owner: Nate. Educational only.
  */
 (function () {
@@ -113,6 +114,79 @@
     });
   }
 
+  function formatMoney(n) {
+    if (typeof n !== "number" || !isFinite(n)) return "—";
+    return "$" + Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
+
+  function formatYears(y) {
+    if (typeof y !== "number" || !isFinite(y)) return "—";
+    return y + " year" + (y === 1 ? "" : "s");
+  }
+
+  /* Session 10: preset buttons + a typed number for one numeric answer (amount, monthly, years). */
+  function bindNumberChoice(opts) {
+    var key = opts.key;
+    var input = opts.inputId ? document.getElementById(opts.inputId) : null;
+    var slider = opts.sliderId ? document.getElementById(opts.sliderId) : null;
+    var nodes = document.querySelectorAll(opts.selector);
+    var cont = opts.continueId ? document.getElementById(opts.continueId) : null;
+    function valid(v) {
+      return typeof v === "number" && isFinite(v) && v >= opts.min && v <= opts.max;
+    }
+    function setVal(v) {
+      var patch = {};
+      patch[key] = v;
+      save(patch);
+    }
+    function sync(fromInput) {
+      var v = load()[key];
+      nodes.forEach(function (n) {
+        var on = Number(n.getAttribute("data-value")) === v;
+        n.classList.toggle("selected", on);
+        n.setAttribute("aria-pressed", on ? "true" : "false");
+      });
+      if (input && !fromInput) input.value = valid(v) ? String(v) : "";
+      if (slider && valid(v)) slider.value = String(Math.min(Number(slider.max), v));
+      if (opts.errorId) {
+        var err = document.getElementById(opts.errorId);
+        var typed = input && input.value !== "";
+        if (err) err.hidden = !(typed && !valid(v));
+      }
+      if (cont && opts.required) {
+        var okNow = valid(v);
+        cont.classList.toggle("is-disabled", !okNow);
+        cont.setAttribute("aria-disabled", okNow ? "false" : "true");
+      }
+      if (opts.onChange) opts.onChange(v, valid(v));
+    }
+    if (load()[key] === undefined && opts.defaultValue !== undefined) setVal(opts.defaultValue);
+    nodes.forEach(function (el) {
+      el.addEventListener("click", function (e) {
+        e.preventDefault();
+        setVal(Number(el.getAttribute("data-value")));
+        sync(false);
+      });
+    });
+    if (input) {
+      input.addEventListener("input", function () {
+        var digits = input.value.replace(/[^0-9]/g, "");
+        setVal(digits === "" ? null : parseInt(digits, 10));
+        sync(true);
+      });
+      input.addEventListener("blur", function () {
+        sync(false);
+      });
+    }
+    if (slider) {
+      slider.addEventListener("input", function () {
+        setVal(parseInt(slider.value, 10));
+        sync(false);
+      });
+    }
+    sync(false);
+  }
+
   function formatSectors(sectors) {
     if (!sectors || !sectors.length) return "—";
     if (sectors.indexOf("none") !== -1) return "No preference";
@@ -130,7 +204,12 @@
       " · Return: " +
       (d.return || "—") +
       " · Sectors: " +
-      formatSectors(d.sectors);
+      formatSectors(d.sectors) +
+      " · Starting: " +
+      formatMoney(d.amount) +
+      (d.monthly ? " + " + formatMoney(d.monthly) + "/month" : "") +
+      " · Time: " +
+      formatYears(d.years);
   }
 
   function bindDisclaimerGate(opts) {
@@ -172,6 +251,9 @@
     fillAnswersSummary: fillAnswersSummary,
     bindDisclaimerGate: bindDisclaimerGate,
     formatSectors: formatSectors,
+    formatMoney: formatMoney,
+    formatYears: formatYears,
+    bindNumberChoice: bindNumberChoice,
     nextPlanVariant: nextPlanVariant,
     getPlanVariant: getPlanVariant,
   };
