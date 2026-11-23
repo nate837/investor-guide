@@ -1,4 +1,6 @@
-# Investor Guide (Session 10)
+# Investor Guide (Session 10B)
+
+**Session 10B (2026-11-23): big company list.** `companies.html` lists **4,352** NYSE, Nasdaq and NYSE American companies (Nasdaq 2,708 · NYSE 1,465 · NYSE American 179), each with an auto card: P/E, sales growth, profit margin and debt level, a one-line plain-English meaning for each, a size tier (Mega → Micro), a simple risk level (Lower → Very high), a sector, Dow 30 / S&P 500 / Nasdaq-100 tags, an as-of line and links to the exact SEC filing. Search by name or ticker; filter by exchange, size, risk, sector or famous list. The 175 deep research cards stay. **High** plans now give ~15% of company slots to profitable mid/small growers from the big list, **Extra high** ~30% to small/micro growers, always with the smallest weights; Extra low → High-medium never use the big list. Ladder numbers unchanged. Details: `docs/SPEC.md` §21.
 
 **Session 10:** more companies at higher risk (High 18–25, Extra high 25–35 at $10,000+), two new quiz steps — **starting amount** (+ optional monthly addition) and **time period** — smaller amounts get fewer single companies and more ETFs (each company ≥ ~$50, each ETF ≥ ~$25), every holding shows its dollar amount, an illustrative bad / middle / good growth table with stated assumptions, and short-time-period warnings. Universe grows to 175 companies, each with a full research card. Committed locally; not pushed or deployed.
 
@@ -66,7 +68,12 @@ Footer on every page: **Home · Disclaimer · Sources · Watchlist · Research**
 | `js/render-plan.js` | Holdings table (% and $) + research block + tier mix / notes + Session 10 time-period warning and growth table |
 | `js/research-data.js` | Research data for all 175 companies (CIK, 10-K citation, business, risks, IR); 59 added in Session 10 |
 | `js/research.js` | Research cards (plan view + `research.html?view=all` library) |
-| `research.html` | Research cards page |
+| `research.html` | Research cards page (auto cards for big-list plan picks) |
+| `companies.html` + `js/companies.js` | **Session 10B** searchable company list (4,352 companies) |
+| `js/company-card.js` | **Session 10B** auto-card renderer (key numbers + plain meanings + as-of + EDGAR links) |
+| `data/companies.json` | **Session 10B** precomputed company data (one static file, ~680 KB, ~210 KB gzipped) |
+| `js/broad-picks.js` | **Session 10B** the 276 smaller & riskier names High / Extra high plans may use |
+| `tools/build_companies.py`, `tools/sic_sector.py`, `tools/fetch/` | **Session 10B** scripts that fetch the SEC / Nasdaq data and rebuild the two data files |
 | `tests/generator.test.js` | Node test over every risk × return × sector × variant × amount × time period combo (207,360) |
 | `404.html`, `favicon.*`, `site.webmanifest`, `.nojekyll`, `robots.txt` | Website files (Session 9) |
 | `deploy/github-pages.sh` | One-command GitHub Pages publish after a one-time `gh auth login` |
@@ -141,7 +148,8 @@ Run the test: `node tests/generator.test.js` (207,360 combos, ~45 s; prints the 
 | **7 EDGAR research cards** | **Done** |
 | **8 College-app writeup** | **Done** |
 | **9 Aggressive ladder + deeper research + website** | **Done (live)** |
-| **10 More companies + starting amount + time period** | **Done locally (not pushed)** |
+| **10 More companies + starting amount + time period** | **Done (live)** |
+| **10B Big NYSE + Nasdaq company list, auto cards, smaller & riskier picks at High / Extra high** | **Done (live)** |
 
 ## Owner
 
@@ -165,10 +173,28 @@ Built the same way as Session 9 on 2026-10-08: CIKs from a fresh SEC `company_ti
 
 ## Put it online
 
-The site is plain static files with relative paths, so any static host works. It is live on GitHub Pages at https://nate837.github.io/investor-guide/ (Session 9). Session 10 is committed locally only; publish with `bash deploy/github-pages.sh` when approved.
+The site is plain static files with relative paths, so any static host works. It is live on GitHub Pages at https://nate837.github.io/investor-guide/ (Session 9). Sessions 10 and 10B are live; publish updates with `bash deploy/github-pages.sh`.
 
 Easiest path (GitHub Pages, free):
 1. One-time login: `gh auth login` (choose GitHub.com → HTTPS → "Login with a web browser", then enter the code at github.com/login/device).
 2. Publish: `bash deploy/github-pages.sh` → prints `https://<your-username>.github.io/investor-guide/`.
 
 Other options: drag the folder onto Netlify Drop (app.netlify.com/drop, needs a free Netlify login to keep it), or Cloudflare Pages / Vercel (each needs its own login).
+
+## Session 10B — Rebuild the company list
+
+```bash
+mkdir -p /workspace/ig-data && cd /workspace/ig-data
+# 1. listings + prices + ticker→CIK (SEC wants a descriptive User-Agent)
+curl -s -A "<name> <email>" -o cte.json https://www.sec.gov/files/company_tickers_exchange.json
+curl -s -o nasdaqlisted.txt https://www.nasdaqtrader.com/dynamic/SymDir/nasdaqlisted.txt
+curl -s -o otherlisted.txt https://www.nasdaqtrader.com/dynamic/SymDir/otherlisted.txt
+curl -s -A "Mozilla/5.0" -o screener.json "https://api.nasdaq.com/api/screener/stocks?tableonly=true&download=true"
+# famous-list tags: SPDR SPY / DIA holdings xlsx (ssga.com) -> spy_t.json / dia_t.json, Nasdaq-100 list -> ndx_t.json
+# 2. SEC XBRL frames, then universe, metrics, SIC codes (about 15 min at SEC's rate limit)
+python3 /workspace/investor-guide/tools/fetch/fetch_frames.py && python3 .../fetch2.py && python3 .../fetch3.py
+python3 .../universe.py && python3 .../metrics.py && python3 .../fetch_subs.py
+# 3. build data/companies.json + js/broad-picks.js
+python3 /workspace/investor-guide/tools/build_companies.py /workspace/ig-data YYYY-MM-DD
+node tests/generator.test.js
+```

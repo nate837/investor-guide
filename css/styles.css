@@ -1334,3 +1334,37 @@ body {
   color: var(--muted);
   margin-top: 2px;
 }
+
+/* ===== Session 10B — big company list + auto cards ===== */
+.cl-search { margin-bottom: 4px; -webkit-appearance: none; appearance: none; }
+.cl-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 10px; }
+.cl-grid .rc-select { font-size: 0.95rem; padding: 8px 6px; }
+.cl-reset-wrap { margin-top: 10px; }
+.cl-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 10px; }
+.cl-item { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow-card); overflow: hidden; }
+.cl-item[open] { border-color: var(--accent); }
+.cl-sum { list-style: none; cursor: pointer; padding: 10px 12px; min-height: var(--tap); display: flex; flex-direction: column; gap: 4px; }
+.cl-sum::-webkit-details-marker { display: none; }
+.cl-sum:focus-visible { outline: 3px solid var(--accent-ring); outline-offset: -3px; }
+.cl-top { display: flex; align-items: baseline; gap: 8px; min-width: 0; }
+.cl-ticker { font-weight: 750; font-size: 1.02rem; flex: 0 0 auto; }
+.cl-name { color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+.cl-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+.cl-small { font-size: 0.82rem; color: var(--muted); }
+.cl-body .ac-card { margin: 0; border: 0; border-top: 1px solid var(--border); border-radius: 0; box-shadow: none; }
+.cl-body .ac-card .rc-ticker, .cl-body .ac-card > .rc-chips { display: none; }
+.ac-sub { margin: 0 0 4px; }
+.ac-nums { margin: 6px 0 0; }
+.ac-num { padding: 8px 0; border-bottom: 1px solid var(--border); }
+.ac-num:last-child { border-bottom: 0; }
+.ac-num dt { font-weight: 650; font-size: 0.9rem; color: var(--ink); }
+.ac-num dd { margin: 2px 0 0; color: var(--muted); line-height: 1.45; }
+.ac-val { color: var(--ink); font-size: 1.05rem; margin-right: 4px; }
+.ac-asof { overflow-wrap: anywhere; }
+#cl-sources code { font-size: 0.8em; overflow-wrap: anywhere; }
+@media (max-width: 340px) { .cl-grid { grid-template-columns: 1fr; } }
+/* Session 10B: six footer links (Companies added) — two rows of three on phones */
+@media (max-width: 480px) {
+  .footer-nav { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px 4px; }
+  .footer-nav a { padding: 6px 4px; font-size: 0.8rem; }
+}

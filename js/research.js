@@ -27,9 +27,23 @@
     return m[parseInt(p[1], 10) - 1] + " " + parseInt(p[2], 10) + ", " + p[0];
   }
 
+  /* Session 10B: smaller, riskier plan picks from the big list get an auto card (key numbers from SEC data) */
+  function broadCard(t, where) {
+    var B = window.IG_BROAD;
+    if (!B || !window.IGCompanyCard) return null;
+    for (var i = 0; i < B.picks.length; i++) {
+      if (B.picks[i].ticker === t) {
+        return window.IGCompanyCard.html(window.IGCompanyCard.toObj(B.picks[i].row, B.meta), { where: where, isPick: true, meta: B.meta });
+      }
+    }
+    return null;
+  }
+
   function card(t, where) {
     var c = DATA.companies[t];
     if (!c) {
+      var auto = broadCard(t, where);
+      if (auto) return auto;
       return '<section class="card rc-card"><h3 class="rc-ticker">' + esc(t) + '</h3><p class="note">No verified research data. Search EDGAR and the company\'s official IR site.</p></section>';
     }
     var k = c.tenK;
@@ -83,8 +97,10 @@
       if (h.type === "ETF" && etfs.indexOf(h.ticker + " · " + h.name) < 0) etfs.push(h.ticker + " · " + h.name);
     });
 
-    var html = intro("<strong>" + all.length + "</strong> compan" + (all.length === 1 ? "y" : "ies") + " in this plan (A and B), safest tier first. Each card: safety tier and why, what the business does, key risks from its latest 10-K, and what to check next.");
-    html += '<div class="actions rc-switch"><a class="btn btn-ghost" href="research.html?view=all">See all ' + Object.keys(DATA.companies).length + " companies</a></div>";
+    var autoN = all.filter(function (t) { return !DATA.companies[t]; }).length;
+    var html = intro("<strong>" + all.length + "</strong> compan" + (all.length === 1 ? "y" : "ies") + " in this plan (A and B), safest tier first. Each card: safety tier and why, what the business does, key risks from its latest 10-K, and what to check next." +
+      (autoN ? " The last " + autoN + " are smaller, riskier companies from the big list; they get an <strong>auto card</strong> with four key numbers from SEC data instead." : ""));
+    html += '<div class="actions rc-switch"><a class="btn btn-ghost" href="research.html?view=all">See all ' + Object.keys(DATA.companies).length + ' deep cards</a><a class="btn btn-ghost" href="companies.html">Big company list (NYSE + Nasdaq)</a></div>';
     all.forEach(function (t) {
       var where = [a.indexOf(t) >= 0 ? "Plan A" : "", b.indexOf(t) >= 0 ? "Plan B" : ""].filter(Boolean).join(" · ");
       html += card(t, where);
@@ -126,7 +142,7 @@
       });
     }
 
-    var html = intro("All <strong>" + tickers.length + "</strong> companies the plans can pick: " + esc(counts()) + ". Lower-risk plans pull from the safer tiers; higher-risk plans pull more from Growth and Aggressive growth.");
+    var html = intro("All <strong>" + tickers.length + "</strong> hand-picked companies with deep cards: " + esc(counts()) + ". Lower-risk plans pull from the safer tiers; higher-risk plans pull more from Growth and Aggressive growth. High and Extra high plans can also add a few smaller, riskier names from the <a href=\"companies.html\">big company list</a>.");
     html += '<section class="card rc-filters"><p class="plan-label">Filter</p><div class="rc-tier-btns" role="group" aria-label="Safety tier">';
     ["All"].concat(TIER_ORDER).forEach(function (t) {
       html += '<button type="button" class="option rc-filter" data-tier="' + esc(t) + '">' + esc(t) + "</button>";
@@ -140,6 +156,12 @@
     });
     document.getElementById("rc-sector").addEventListener("change", function (e) { state.sector = e.target.value; draw(); });
     draw();
+    /* Session 10B: research.html?view=all&t=MSFT jumps to that card (linked from the big list) */
+    var m = /[?&]t=([^&#]+)/.exec(location.search);
+    if (m) {
+      var el = document.getElementById("rc-" + decodeURIComponent(m[1]).toUpperCase().replace(".", "-"));
+      if (el) setTimeout(function () { el.scrollIntoView(); }, 0);
+    }
   }
 
   window.IGResearch = { render: render, renderLibrary: renderLibrary, card: card };

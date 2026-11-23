@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="description" content="Educational Investor Guide: a phone-friendly quiz that builds a sample long-term plan of real ETFs and companies, with research cards built from SEC filings. College-application project. Not financial advice." />
+  <meta name="theme-color" content="#1b6b4a" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Investor Guide — educational project" />
+  <meta property="og:description" content="Risk-first quiz → sample plan of real ETFs and companies, with research cards from SEC filings. Educational only, not financial advice." />
+  <meta property="og:image" content="icon-512.png" />
+  <meta name="twitter:card" content="summary" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="favicon.ico" sizes="32x32" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+  <link rel="manifest" href="site.webmanifest" />
+  <title>Investor Guide — Company list</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <p class="brand">Investor Guide · Company list</p>
+      <h1>All companies</h1>
+      <span class="badge-edu">Educational · Not personalized advice · No buy/sell calls</span>
+    </header>
+
+    <main class="main">
+      <section class="card">
+        <p class="lede" id="cl-lede">Loading the company list…</p>
+        <p class="note">Each company has an auto card with four key numbers from its SEC filings, what each one means, and a simple risk level. Search or filter, then tap a company to open its card.</p>
+      </section>
+
+      <section class="card rc-filters cl-filters">
+        <label class="rc-sector-label" for="cl-q">Search by name or ticker</label>
+        <input id="cl-q" class="rc-select cl-search" type="search" inputmode="search" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="e.g. Apple or AAPL" />
+        <div class="cl-grid">
+          <div><label class="rc-sector-label" for="cl-ex">Exchange</label><select id="cl-ex" class="rc-select"><option value="">All exchanges</option></select></div>
+          <div><label class="rc-sector-label" for="cl-size">Size</label><select id="cl-size" class="rc-select"><option value="">All sizes</option></select></div>
+          <div><label class="rc-sector-label" for="cl-risk">Risk level</label><select id="cl-risk" class="rc-select"><option value="">All risk levels</option></select></div>
+          <div><label class="rc-sector-label" for="cl-sec">Sector</label><select id="cl-sec" class="rc-select"><option value="">All sectors</option></select></div>
+          <div><label class="rc-sector-label" for="cl-list">Famous lists</label><select id="cl-list" class="rc-select"><option value="">Any</option></select></div>
+          <div><label class="rc-sector-label" for="cl-sort">Sort</label><select id="cl-sort" class="rc-select">
+            <option value="big">Biggest first</option>
+            <option value="small">Smallest first</option>
+            <option value="az">A to Z</option>
+            <option value="growth">Fastest sales growth</option>
+            <option value="margin">Highest profit margin</option>
+          </select></div>
+        </div>
+        <div class="actions cl-reset-wrap"><button type="button" class="btn btn-ghost" id="cl-reset">Clear filters</button></div>
+        <p class="note" id="cl-count" aria-live="polite"></p>
+      </section>
+
+      <div id="cl-list-root" class="cl-list"></div>
+      <div class="actions"><button type="button" class="btn btn-secondary" id="cl-more" hidden>Show more</button></div>
+
+      <section class="card">
+        <p class="plan-label">What the labels mean</p>
+        <ul class="research-list">
+          <li><strong>Size</strong> is the company's total stock market value: Mega $200B+, Large $10–200B, Mid $2–10B, Small $300M–$2B, Micro under $300M.</li>
+          <li><strong>Risk level</strong> (Lower, Medium, Higher, Very high) is a simple rule of thumb from size, whether it made a profit, debt, share price, and big jumps in sales. It is not a prediction.</li>
+          <li><strong>Sector</strong> comes from the industry code the company gives the SEC.</li>
+          <li><strong>In plans:</strong> Low and medium plans use only the hand-picked companies with deep research cards. Smaller, riskier names from this list can appear only in High and Extra high plans.</li>
+        </ul>
+        <p class="note" id="cl-sources"></p>
+      </section>
+
+      <section class="card plan-disclaimer">
+        <p class="plan-label">Disclaimer</p>
+        <div class="disclaimer-box">
+          <p>This Investor Guide is an educational tool for a college-application project. It is not personalized financial advice, not a recommendation to buy or sell anything, and not an offer from a broker or advisor. Markets can lose money. Past performance does not predict future results. Numbers on these cards come from company filings and can be out of date or reported differently from company to company. You are responsible for any real-world decisions you make.</p>
+        </div>
+      </section>
+
+      <div class="actions">
+        <a class="btn btn-primary" href="plan.html">Back to plan</a>
+        <a class="btn btn-secondary" href="research.html?view=all">Deep research cards</a>
+        <a class="btn btn-ghost" href="index.html">Home</a>
+      </div>
+    </main>
+
+    <footer class="footer-nav">
+      <a href="index.html">Home</a>
+      <a href="disclaimer.html">Disclaimer</a>
+      <a href="sources.html">Sources</a>
+      <a href="watchlist.html">Watchlist</a>
+      <a href="companies.html" aria-current="page">Companies</a>
+      <a href="research.html">Research</a>
+    </footer>
+  </div>
+  <script src="js/company-card.js"></script>
+  <script src="js/companies.js"></script>
+</body>
+</html>

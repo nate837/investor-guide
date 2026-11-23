@@ -348,7 +348,7 @@ Upgrade `sources.html` (and CSS as needed) into a real phone-friendly Trusted So
 - **Website:** static, relative paths only, `404.html`, favicon (SVG / ICO / PNG), `site.webmanifest`, meta description / Open Graph tags on every page, `.nojekyll`, `robots.txt`. Works on GitHub Pages, Netlify, Vercel, Cloudflare Pages, or any static host. No backend.
 - **Unchanged:** locked disclaimer (verbatim), the 12 locked managers + color mapping, allowed / banned sources, no live prices (watchlist stays one delayed EOD snapshot; new tickers show as unpriced there), phone layout.
 
-## 20. Session 10 — More companies, starting amount, time period (done locally, not pushed)
+## 20. Session 10 — More companies, starting amount, time period (done, live)
 
 - **Quiz:** two new steps after Return: **Money** (`money.html`: starting amount presets $500 / $1,000 / $5,000 / $10,000 / $25,000+ or typed $100–$10,000,000; optional monthly addition, $0 default) and **Time** (`time.html`: presets 1 / 3 / 5 / 10 / 15 / 20+ years or a 1–40 slider; shows the short-period warning live). Stored as `amount`, `monthly`, `years` in the same `sessionStorage` object; shown on Review and in the plan header. Progress bar now has 8 steps. Old sessions without an amount are sent to the Money step.
 - **Ladder:** §7 full-size table (applies at $10,000+). Weights taper so top-conviction names use the cap.
@@ -379,6 +379,23 @@ Upgrade `sources.html` (and CSS as needed) into a real phone-friendly Trusted So
 - **Unchanged:** locked disclaimer (verbatim), the 12 locked managers + color mapping, allowed / banned sources, no live prices (watchlist still one delayed EOD snapshot; new tickers show as unpriced), educational-not-advice framing, phone layout rules (≥16px inputs, ≥44px taps, safe-area).
 
 *Spec updated for Session 10.*
+
+## 21. Session 10B — Big company list (NYSE + Nasdaq) with auto cards (live)
+
+Built 2026-11-23. Repo note: the earlier money/time work is "Session 10"; this is the company-list part Nate approved as Session 10 on 2026-11-23, so it is labeled 10B here.
+
+- **Universe:** every common stock (and ordinary / ADS share) listed on NYSE, Nasdaq and NYSE American in the Nasdaq Trader symbol files of 2026-11-23, minus ETFs/ETNs, funds, warrants, units, rights, preferreds, notes, test issues and blank-check (SPAC, SIC 6770) companies, and minus companies with too little SEC data (no annual sales or profit in the XBRL frames, no price, or no SIC code). One row per company (CIK); other share classes are listed on the card. Result: **4,352 companies** — Nasdaq 2,708, NYSE 1,465, NYSE American 179. Covers 30/30 Dow; 500 of 504 S&P 500 holdings lines (missing CBOE, which lists on Cboe, new spin-offs HONA and VYLR with no full year filed, and one placeholder line); 95 of 101 Nasdaq-100 lines (missing ASML, CCEP, TRI, FER — foreign filers that use IFRS — plus SPCX and HONA, no full year filed yet). ExxonMobil's new 2026 parent (CIK 2115436) has no full year filed, so its card uses Exxon Mobil Corp's (CIK 34088) numbers and says so.
+- **Data:** SEC `company_tickers_exchange.json` (ticker → CIK), SEC XBRL **frames** API (us-gaap revenue / net income / EPS for CY2024–CY2026 annual frames; debt and equity from the newest quarter-end balance sheet, CY2025Q2I–CY2026Q3I), SEC submissions (SIC code), companyfacts (fallback sales tag for ~480 companies), Nasdaq stock-screener download (delayed last price + market value, 2026-11-23 afternoon). Index tags: SPDR DIA / SPY holdings files (as of 2026-11-20), Nasdaq.com Nasdaq-100 list (2026-11-23).
+- **Size:** market value — Mega ≥ $200B, Large $10–200B, Mid $2–10B, Small $300M–2B, Micro < $300M.
+- **Risk level (rule of thumb, not a prediction):** points = size (Mega/Large 0, Mid 1, Small/Micro 2) + lost money + heavy debt (debt-to-equity > 2 or negative equity, not for banks) + price < $5 + Nasdaq listing-deficiency flag + no sales + sales jump > 60% or drop > 25% + P/E > 100. 0 Lower, 1 Medium, 2 Higher, 3+ Very high.
+- **Sector:** SEC SIC code → 11 plain sectors (tools/sic_sector.py), each mapped to one of the app's 6 quiz sectors.
+- **Key numbers on every auto card** (with a plain one-liner each and an as-of line): P/E = price ÷ diluted EPS of the latest fiscal year (market value ÷ net income when share counts disagree); sales growth year over year; profit margin = net income ÷ sales; debt-to-equity (total debt = long-term incl. current + short-term borrowings) or a bank / negative-equity / not-found explanation. Links: the exact source filing on EDGAR and the company's 10-K list. Hidden when unreliable: if profit > sales the sales tag is partial, so growth and margin are not shown (122 companies). Companies whose SEC data has a fiscal year ending after the build date are skipped (1). When Nasdaq gives no market value, it is price × shares (dei) or price × (net income ÷ EPS).
+- **Plans:** Extra low → High-medium never use the big list. **High** gives ~15% of company slots (3–4 at full size) to "Smaller & riskier" profitable-first **mid/small** growers (sales +15%+, price ≥ $5, ≥ $500M value, ≥ $100M sales); **Extra high** gives ~30% (8–11 at full size) to **small/micro** growers (sales +20%+, price ≥ $5, ≥ $50M value, ≥ $10M sales, loss margin no worse than −60%). Both skip sales jumps over 150% and margins over 60% (likely mergers / data quirks). These names always get the smallest weights and sit in the Satellite sleeve; source type "SEC XBRL data (auto card)". Ladder numbers (§7 / §20) unchanged. Pool lives in `js/broad-picks.js` (276 names).
+- **Pages:** `companies.html` (search by name/ticker; filters for exchange, size, risk, sector, famous list; sort; 40 rows at a time; tap to open the card; filters kept in the URL). Research page shows auto cards for big-list plan picks. Footer gains "Companies" (two rows of three on phones).
+- **Rebuild:** `python3 tools/fetch/*.py` (see README) then `python3 tools/build_companies.py <data-dir> <date>`.
+
+*Spec updated for Session 10B.*
+
 
 *Spec updated for Session 9. Session 8 writeup, Session 7 research cards (now deeper), Session 6 watchlist, locked disclaimer and Sessions 1–5 product rules unchanged except the §7 holdings ladder.*
 

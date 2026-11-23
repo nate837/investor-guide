@@ -143,7 +143,7 @@
     holdings.forEach(function (h) {
       if (h.type === "Company" && h.tier) counts[h.tier] = (counts[h.tier] || 0) + 1;
     });
-    var order = ["Defensive", "Steady", "Growth", "Aggressive growth"];
+    var order = ["Defensive", "Steady", "Growth", "Aggressive growth", "Smaller & riskier"];
     var parts = order
       .filter(function (t) {
         return counts[t];

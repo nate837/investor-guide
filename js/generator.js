@@ -3,6 +3,8 @@
  * Real ETF + company holdings. ONLY the 12 locked manager names may appear.
  * Lower risk = mostly ETFs + very safe companies; higher risk = more single companies from riskier tiers.
  * Less money = fewer single companies and more ETFs (each company >= ~$50, each ETF >= ~$25).
+ * Session 10B: High and Extra high plans can also use a small "Smaller & riskier" slice picked from the
+ * big NYSE / Nasdaq list (js/broad-picks.js, auto-built from SEC data). Lower risk levels never do.
  * Educational static framework — no live prices. Owner: Nate.
  */
 (function () {
@@ -128,6 +130,29 @@
   /* ===== Company universe: real US-listed, exchange-traded companies that file 10-Ks (Session 9: 116; Session 10: +59 = 175).
      Each one is tagged with a safety tier. No penny stocks, OTC, options, leverage, or crypto. ===== */
   var TIERS = ["Defensive", "Steady", "Growth", "Aggressive growth"];
+  /* Session 10B: smaller, riskier growth companies from the big list. Only High / Extra high plans use them. */
+  var SMALL_TIER = "Smaller & riskier";
+  var BROAD_LEVEL = { High: "high", "Extra high": "extraHigh" };
+  var broadCache = {};
+  function broadPicks(risk) {
+    var lvl = BROAD_LEVEL[risk];
+    var src = typeof window !== "undefined" && window.IG_BROAD && window.IG_BROAD.picks;
+    if (!lvl || !src) return [];
+    if (broadCache[lvl] && broadCache[lvl].src === src) return broadCache[lvl].list;
+    var list = src
+      .filter(function (p) { return p.levels.indexOf(lvl) !== -1; })
+      .sort(function (a, b) { return a.rank[lvl] - b.rank[lvl]; }) /* steadier growth first */
+      .map(function (p) {
+        return { ticker: p.ticker, name: p.name, sector: p.sector, tier: SMALL_TIER, why: p.why, broad: true };
+      });
+    broadCache[lvl] = { src: src, list: list };
+    return list;
+  }
+  /* The companies a risk level may pick from. */
+  function poolFor(risk) {
+    var b = broadPicks(risk);
+    return b.length ? COMPANY_UNIVERSE.concat(b) : COMPANY_UNIVERSE;
+  }
   var COMPANY_UNIVERSE = [
     {"ticker":"MSFT","name":"Microsoft","sector":"Technology","tier":"Steady","why":"Software + cloud giant"},
     {"ticker":"AAPL","name":"Apple","sector":"Technology","tier":"Steady","why":"Consumer tech + services"},
@@ -501,23 +526,32 @@
         { count: g2, order: [G, A, S, D], label: "growth" },
       ];
     }
+    var SM = SMALL_TIER;
     if (risk === "High") {
       var steady = Math.ceil(n / 2);
       var grow = n - steady;
       var aggr = Math.floor(grow / 3);
+      /* Session 10B: about 15% of the slots go to smaller, riskier names (mid / small caps), smallest weights */
+      var smallH = n >= 4 ? Math.max(1, Math.round(n * 0.15)) : 0;
+      var growH = Math.max(0, grow - aggr - smallH);
       return [
         { count: steady, order: [S, D, G, A], label: "steady large cap" },
-        { count: grow - aggr, order: [G, A, S, D], label: "growth" },
-        { count: aggr, order: [A, G, S, D], label: "aggressive growth" },
+        { count: growH, order: [G, A, S, D], label: "growth" },
+        { count: grow - growH - smallH, order: [A, G, S, D], label: "aggressive growth" },
+        { count: smallH, order: [SM, A, G, S, D], label: "smaller & riskier" },
       ];
     }
     /* Extra high: mostly higher-risk, higher-reward names */
+    /* Session 10B: about 30% of the slots go to smaller, riskier names (mid, small and micro caps), smallest weights */
     var growthN = Math.round(n * 0.75);
-    var aN = Math.round(growthN * 0.55);
+    var smallX = n >= 3 ? Math.max(1, Math.round(n * 0.3)) : 0;
+    var bigGrowth = growthN - smallX;
+    var aN = Math.round(bigGrowth * 0.55);
     return [
       { count: aN, order: [A, G, S, D], label: "aggressive growth" },
-      { count: growthN - aN, order: [G, A, S, D], label: "growth" },
+      { count: bigGrowth - aN, order: [G, A, S, D], label: "growth" },
       { count: n - growthN, order: [S, G, D, A], label: "steady anchor" },
+      { count: smallX, order: [SM, A, G, S, D], label: "smaller & riskier" },
     ];
   }
 
@@ -582,11 +616,12 @@
   function pickCompanies(risk, sectors, v, wantN, minN) {
     var wanted = selectedSectors(sectors);
     var notes = [];
+    var POOL = poolFor(risk);
     var inSector = wanted.length
-      ? COMPANY_UNIVERSE.filter(function (c) {
+      ? POOL.filter(function (c) {
           return wanted.indexOf(c.sector) !== -1;
         })
-      : COMPANY_UNIVERSE.slice();
+      : POOL.slice();
     var n = wantN;
     var fillFromBroad = 0;
     if (wanted.length && inSector.length < n) {
@@ -609,6 +644,7 @@
         for (var o = 0; o < g.order.length && !got; o++) {
           got = picker.take(g.order[o]);
           var base = g.order[0] === "Defensive core" ? "Defensive" : g.order[0];
+          if (base === SMALL_TIER && !broadPicks(risk).length) base = got ? got.tier : base; /* big list not loaded: no swap note */
           if (got && got.tier !== base) {
             var key = base + "→" + got.tier;
             swaps[key] = (swaps[key] || 0) + 1;
@@ -624,7 +660,7 @@
       );
     });
     if (fillFromBroad > 0 || picks.length < n) {
-      var outside = COMPANY_UNIVERSE.filter(function (c) {
+      var outside = POOL.filter(function (c) {
         return !picker.used[c.ticker] && wanted.indexOf(c.sector) === -1;
       });
       var bp = makePicker(outside, v);
@@ -646,6 +682,8 @@
         );
       }
     }
+    /* Session 10B: smaller & riskier big-list names always go last, so they get the smallest weights */
+    picks = picks.filter(function (p) { return !p.c.broad; }).concat(picks.filter(function (p) { return p.c.broad; }));
     return { picks: picks, notes: notes };
   }
 
@@ -728,10 +766,11 @@
       ticker: c.ticker,
       name: c.name,
       type: "Company",
-      sleeve: c.tier === "Aggressive growth" ? "Satellite" : "Tilt",
+      sleeve: c.tier === "Aggressive growth" || c.tier === SMALL_TIER ? "Satellite" : "Tilt",
       pct: pct,
       why: c.why + " · " + c.tier + (filled ? " · outside your sectors" : ""),
-      sourceType: "SEC 10-K; IR",
+      sourceType: c.broad ? "SEC XBRL data (auto card)" : "SEC 10-K; IR",
+      broad: !!c.broad,
       tier: c.tier,
       sector: c.sector,
       outsideSectors: !!filled,
@@ -1088,12 +1127,12 @@
     }
     if (band === "high") {
       return (
-        "Best plan for High risk: mostly single companies — about half steady large caps and half higher-growth names — with ETFs as a smaller BLUE-style core. Growth ideas are framed as a YELLOW educational sleeve (style adjacency to Tiger Global / Appaloosa / Third Point). We do not copy their portfolios." +
+        "Best plan for High risk: mostly single companies — about half steady large caps and half higher-growth names — with ETFs as a smaller BLUE-style core. Growth ideas are framed as a YELLOW educational sleeve (style adjacency to Tiger Global / Appaloosa / Third Point). We do not copy their portfolios. A few slots (about 15%) go to smaller, riskier mid- and small-size companies from the big NYSE / Nasdaq list, with the smallest weights; they swing more and can fall much further." +
         sectorNote + horizon + alt
       );
     }
     return (
-      "Best plan for Extra high risk: mostly higher-risk, higher-reward growth companies with only a small BLUE-style ETF cushion. The most aggressive names sit in a RED-style Satellite sleeve (style adjacency to Situational Awareness LP / Pershing Square / ARK Invest — not copies). Still only US-listed, exchange-traded stocks: no penny stocks, OTC, options, leverage, or crypto. We do not treat any 13F as a live buy list." +
+      "Best plan for Extra high risk: mostly higher-risk, higher-reward growth companies with only a small BLUE-style ETF cushion. The most aggressive names sit in a RED-style Satellite sleeve (style adjacency to Situational Awareness LP / Pershing Square / ARK Invest — not copies). Still only US-listed, exchange-traded stocks: no penny stocks, OTC, options, leverage, or crypto. We do not treat any 13F as a live buy list. About 30% of the company slots go to smaller, riskier companies (mid, small and micro size) from the big NYSE / Nasdaq list, with the smallest weights. Many of these are losing money or very young; any one of them can lose most of its value." +
       sectorNote + horizon + alt
     );
   }
@@ -1185,6 +1224,9 @@
     RISK_RULES: RISK_RULES,
     VARIANTS: VARIANTS,
     TIERS: TIERS,
+    SMALL_TIER: SMALL_TIER,
+    broadPicks: broadPicks,
+    poolFor: poolFor,
     ETF_UNIVERSE: ETF_UNIVERSE,
     COMPANY_UNIVERSE: COMPANY_UNIVERSE,
     AMOUNT_BANDS: AMOUNT_BANDS,

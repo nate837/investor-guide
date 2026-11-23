@@ -4,9 +4,11 @@
  * weights, ETF % in the band for that amount, company counts (full and scaled), per-company cap,
  * ~$50 minimum per company and ~$25 per ETF, dollar column, sector compliance, tier rules, taper,
  * research-card coverage, horizon warnings, and the illustrative projection.
+ * Session 10B adds: smaller & riskier big-list names only at High / Extra high, smallest weights, no penny stocks.
  * Run: node tests/generator.test.js
  */
 global.window = {};
+require("../js/broad-picks.js");
 require("../js/generator.js");
 require("../js/research-data.js");
 const P = window.IGPlan;
@@ -20,6 +22,12 @@ for (let m = 1; m < 1 << SECTORS.length; m++) COMBOS.push(SECTORS.filter((_, i) 
 const NEXT = { "Extra low": "Low", Low: "Medium-low", "Medium-low": "High-medium", "High-medium": "High", High: "Extra high", "Extra high": "Extra high" };
 const ALLOWED_NAMES = new Set([].concat(...Object.values(P.MANAGERS)).map((m) => m.name + " / " + m.firm));
 const UNIVERSE = new Map(P.COMPANY_UNIVERSE.map((c) => [c.ticker, c]));
+/* Session 10B: smaller, riskier picks from the big list (High / Extra high only) */
+const BROAD = new Map(window.IG_BROAD.picks.map((p) => [p.ticker, p]));
+const BF = window.IG_BROAD.meta.fields;
+const bf = (p, f) => p.row[BF.indexOf(f)];
+for (const p of BROAD.values()) if (!UNIVERSE.has(p.ticker)) UNIVERSE.set(p.ticker, { ticker: p.ticker, sector: p.sector, tier: P.SMALL_TIER, broadPick: p });
+const broadStats = { High: 0, "Extra high": 0 };
 const BANDS = { micro: [100, 500, 850], small: [1000, 3000, 4999], mid: [5000, 7500, 9999], full: [10000, 25000, 250000] };
 const AMOUNTS = [].concat(...Object.values(BANDS));
 const BAND_ORDER = ["micro", "small", "mid", "full"];
@@ -116,7 +124,7 @@ function checkPlan(label, risk, sectors, plan, amount, fullPlan) {
   // sector compliance
   const wanted = sectors.includes("none") ? [] : sectors;
   if (wanted.length) {
-    const inPool = P.COMPANY_UNIVERSE.filter((c) => wanted.includes(c.sector)).length;
+    const inPool = P.poolFor(risk).filter((c) => wanted.includes(c.sector)).length;
     const outside = cos.filter((c) => !wanted.includes(UNIVERSE.get(c.ticker).sector));
     ok(outside.every((c) => c.outsideSectors), `${label}: unflagged out-of-sector company`);
     if (outside.length) {
@@ -133,11 +141,33 @@ function checkPlan(label, risk, sectors, plan, amount, fullPlan) {
   }
   if (risk === "Extra low" && !wanted.length) ok(cos.every((c) => UNIVERSE.get(c.ticker).core), `${label}: Extra low not using mega-cap core names`);
   if (risk === "Medium-low") ok(tiers.filter((t) => t === "Aggressive growth").length === 0 || swapped, `${label}: aggressive name at Medium-low`);
-  const growthShare = tiers.length ? tiers.filter((t) => t === "Growth" || t === "Aggressive growth").length / tiers.length : 0;
+  const growthShare = tiers.length ? tiers.filter((t) => t === "Growth" || t === "Aggressive growth" || t === P.SMALL_TIER).length / tiers.length : 0;
+  // Session 10B: smaller & riskier names only at High / Extra high, from the right pool, never penny stocks
+  const broadCos = cos.filter((c) => c.broad);
+  ok(broadCos.every((c) => UNIVERSE.get(c.ticker).tier === P.SMALL_TIER && c.tier === P.SMALL_TIER), `${label}: broad flag mismatch`);
+  ok(cos.filter((c) => UNIVERSE.get(c.ticker).tier === P.SMALL_TIER).every((c) => c.broad), `${label}: unflagged broad pick`);
+  if (risk !== "High" && risk !== "Extra high") ok(broadCos.length === 0, `${label}: smaller & riskier name at ${risk}`);
+  for (const c of broadCos) {
+    const p = BROAD.get(c.ticker);
+    ok(p.levels.includes(risk === "High" ? "high" : "extraHigh"), `${label}: ${c.ticker} not in the ${risk} pool`);
+    ok(bf(p, "size") >= 2 && bf(p, "price") >= 5, `${label}: ${c.ticker} too big or a penny stock`);
+    if (risk === "High") ok(bf(p, "size") <= 3, `${label}: micro cap at High`);
+    ok(c.sleeve === "Satellite" && /auto card/.test(c.sourceType), `${label}: ${c.ticker} sleeve/source`);
+  }
+  if (broadCos.length) {
+    // smaller & riskier names carry the smallest weights
+    const minOther = Math.min(...cos.filter((c) => !c.broad).map((c) => c.pct));
+    ok(broadCos.every((c) => c.pct <= minOther), `${label}: a smaller & riskier name outweighs a bigger company`);
+  }
+  if (band === "full" && !wanted.length) {
+    if (risk === "High") ok(broadCos.length >= 2 && broadCos.length <= 5, `${label}: High full-size has ${broadCos.length} smaller & riskier names`);
+    if (risk === "Extra high") ok(broadCos.length >= 6 && broadCos.length <= 12, `${label}: Extra high full-size has ${broadCos.length} smaller & riskier names`);
+  }
+  if (broadStats[risk] !== undefined) broadStats[risk] = Math.max(broadStats[risk], broadCos.length);
   if (risk === "High" && !swapped && tiers.length >= 8) ok(growthShare >= 0.4 && growthShare <= 0.6, `${label}: High growth share ${growthShare.toFixed(2)}`);
   if (risk === "Extra high" && !swapped && tiers.length) ok(growthShare >= 0.65, `${label}: Extra high growth share ${growthShare.toFixed(2)}`);
   // research card for every company
-  ok(cos.every((c) => R.companies[c.ticker] && R.companies[c.ticker].risks.length >= 2), `${label}: missing research card`);
+  ok(cos.every((c) => (c.broad ? BROAD.has(c.ticker) : R.companies[c.ticker] && R.companies[c.ticker].risks.length >= 2)), `${label}: missing research / auto card`);
   // observed ranges
   const key = risk + "|" + band;
   const s = (seen[key] = seen[key] || { etfMin: 999, etfMax: -1, coMin: 999, coMax: -1, maxCo: 0, minCoDollars: Infinity, n: 0 });
@@ -239,6 +269,8 @@ for (const risk of RISKS) {
 {
   const U = P.COMPANY_UNIVERSE;
   const backup = U.slice();
+  const broadBackup = window.IG_BROAD;
+  window.IG_BROAD = { meta: broadBackup.meta, picks: [] }; // curated-only for this check
   const keepEnergy = U.filter((c) => c.sector === "Energy").slice(0, 5).map((c) => c.ticker);
   const trimmed = U.filter((c) => c.sector !== "Energy" || keepEnergy.includes(c.ticker));
   U.length = 0; trimmed.forEach((c) => U.push(c));
@@ -252,10 +284,19 @@ for (const risk of RISKS) {
     ok(p.planA.holdings.reduce((a, r) => a + r.pct, 0) === 100, `thin-sector fill v${v}: sum`);
   }
   U.length = 0; backup.forEach((c) => U.push(c));
+  window.IG_BROAD = broadBackup;
+}
+
+// Big-list pool sanity: every pick has key numbers, a source accession, and an app sector
+for (const p of BROAD.values()) {
+  ok(["Technology", "Healthcare", "Financials", "Energy", "Consumer", "Industrials"].includes(p.sector), `${p.ticker}: bad sector`);
+  ok(bf(p, "revenueM") > 0 && bf(p, "revenueGrowthPct") != null && bf(p, "profitMarginPct") != null, `${p.ticker}: missing key numbers`);
+  ok(/^\d{10}-\d{2}-\d{6}$/.test(bf(p, "accession")) && /^\d{4}-\d{2}-\d{2}$/.test(bf(p, "fiscalYearEnd")), `${p.ticker}: bad source / date`);
+  ok(!UNIVERSE.get(p.ticker).tier || !R.companies[p.ticker], `${p.ticker}: also a deep-card company`);
 }
 
 console.log(`Combos: ${combos} (6 risks × 5 returns × ${COMBOS.length} sector choices × 3 variants × ${AMOUNTS.length} amounts × ${HORIZONS.length} time periods), checks: ${checks}, ${((Date.now() - t0) / 1000).toFixed(1)}s`);
-console.log(`Universe: ${P.COMPANY_UNIVERSE.length} companies, ${Object.keys(R.companies).length} research cards`);
+console.log(`Universe: ${P.COMPANY_UNIVERSE.length} companies, ${Object.keys(R.companies).length} research cards; big-list pool ${BROAD.size} (High ${P.broadPicks("High").length}, Extra high ${P.broadPicks("Extra high").length}); most smaller & riskier names in one plan: High ${broadStats.High}, Extra high ${broadStats["Extra high"]}`);
 console.log("Observed Plan A + B ranges by risk and amount band (ETF % | companies | max single company % | smallest company $):");
 for (const r of RISKS) {
   for (const b of BAND_ORDER.slice().reverse()) {
